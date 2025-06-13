@@ -1,16 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>User Account</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <div class="container">
-    <h2>Welcome, <span id="user"></span>!</h2>
-    <p>This is your account page.</p>
-    <button id="logoutBtn">Logout</button>
-  </div>
+    <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container navbar-content">
+      <a class="navbar-brand" href="#">Store Name</a>
+      <ul class="navbar-menu">
+        <li><a class="nav-link" href="home.html">Home</a></li>
+        <li><a class="nav-link" href="user-account.html">Account</a></li>
+        <li><a class="nav-link" href="buy.html">Buy</a></li>
+        <li><a class="nav-link" href="sell.html">Sell</a></li>
+      </ul>
+      <div class="cart-button">
+        <button class="btn">
+          Cart <span class="badge">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="bg-dark">
+    <div class="container">
+      <h1>Your Account</h1>
+      <p class="lead">Welcome back</p>
+    </div>
+  </header>
+
+  <!-- Account Info -->
+  <section class="py-5">
+    <div class="container">
+      <h2>Welcome, <span id="user"></span>!</h2>
+      <p>This is your account page.</p>
+      <button id="logoutBtn">Logout</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; Website</p>
+    </div>
+  </footer>
+
   <script src="js/user-account.js"></script>
 </body>
 </html>
