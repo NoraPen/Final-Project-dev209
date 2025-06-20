@@ -4,10 +4,21 @@
   padding: 0;
 }
 
+/* === Soft Modern Pastel Theme === */
+:root {
+  --primary: #A3C9A8;
+  --accent: #F6C1C7;
+  --text: #2D2D2D;
+  --background: #FFFFFF;
+  --footer: #D9E4DD;
+  --font-main: 'Poppins', sans-serif;
+  --font-headings: 'Quicksand', sans-serif;
+}
+
 body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  background-color: #fff;
-  color: #212529;
+  font-family: var(--font-main);
+  background-color: var(--background);
+  color: var(--text);
   line-height: 1.6;
 }
 
@@ -27,15 +38,16 @@ main {
 }
 
 .category-links a {
-  color: #343a40;
+  color: var(--primary);
   text-decoration: none;
   margin: 0 0.7rem;
   transition: color 0.2s, text-decoration 0.2s;
 }
 
+/* === FINAL OVERRIDE: Fix Yellow Hover === */
 .category-links a:hover {
+  color: var(--accent) !important; 
   text-decoration: underline;
-  color: #007bff;
 }
 
 
@@ -50,9 +62,9 @@ a {
   margin: 0 auto;
 }
 
-/* Page Header (home & others) */
+/* Page Header */
 header.bg-dark {
-  background-color: #343a40;
+  background-color: var(--primary);
   padding: 5rem 0;
   color: white;
   text-align: center;
@@ -60,33 +72,32 @@ header.bg-dark {
 
 header h1 {
   font-size: 2.5rem;
+  font-family: var(--font-headings);
 }
+
 
 .lead {
   font-size: 1.25rem;
-  color: #ccc;
+  color: #888;
 }
 
-/* Swiper */
-.swiper {
+/* Fullscreen Swiper */
+.hero-image {
   width: 100%;
-  max-width: 1000px;
-  height: 400px;
-  margin: 2rem auto;
-  position: relative;
+  height: 615px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
-.swiper-slide img {
+.hero-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
-.swiper-button-next,
-.swiper-button-prev {
-  color: white;
-  font-size: 2rem;
-}
+
 
 /* Info Banner */
 .info-banner {
@@ -110,6 +121,8 @@ header h1 {
 .info-text h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
+  font-family: var(--font-headings);
+  color: var(--primary);
 }
 
 .info-text p {
@@ -118,10 +131,12 @@ header h1 {
 }
 
 .info-text .btn {
-  background-color: #343a40;
+  background-color: var(--primary);
   color: white;
   padding: 0.6rem 1.2rem;
   border-radius: 4px;
+  font-family: var(--font-main);
+  border: none;
 }
 
 .info-image {
@@ -137,19 +152,15 @@ header h1 {
 
 /* Section Title */
 .section-title-inline {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-headings);
   font-size: 2rem;
   font-weight: 600;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin: 2rem 0 1rem; /* moved up */
+  margin: 2rem 0 1rem;
   width: 100%;
 }
-
-
-
-
 
 /* Product Boxes */
 .row {
@@ -173,6 +184,7 @@ header h1 {
   border-radius: 0.5rem;
   overflow: hidden;
   width: 100%;
+  background: white;
 }
 
 .card img {
@@ -197,40 +209,48 @@ header h1 {
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
+  font-family: var(--font-headings);
+  color: var(--primary);
 }
 
+/* Buttons */
 .btn {
   display: inline-block;
   padding: 0.6rem 1.2rem;
-  border: 1px solid #000;
+  border: 1px solid var(--primary);
   background: transparent;
   cursor: pointer;
-  margin-top: 0.5rem; /* adds spacing from content */
+  margin-top: 0.5rem;
+  color: var(--primary);
+  font-family: var(--font-main);
 }
 
-
 .btn:hover {
-  background-color: #343a40;
+  background-color: var(--primary);
   color: white;
 }
 
-.badge {
-  display: inline-block;
-  padding: 0.25em 0.4em;
-  font-size: 75%;
-  font-weight: 700;
-  border-radius: 0.375rem;
+button {
+  background-color: var(--accent);
+  color: black;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+button:hover {
+  background-color: #e5a9b0;
+  color: white;
 }
 
 /* Footer */
 .footer-custom {
-  background-color: #343a40;
-  color: white;
+  background-color: var(--footer);
+  color: var(--text);
   padding: 2rem 0;
-  margin-top: 3rem; /* <-- this adds space from products */
+  margin-top: 3rem;
   text-align: center;
 }
-
 
 .footer-content {
   display: flex;
@@ -246,22 +266,20 @@ header h1 {
 }
 
 .footer-bottom {
-  background-color: #23272b;
+  background-color: #cbd5ce;
   padding: 1rem 0;
   font-size: 0.9rem;
-  color: #ccc;
+  color: #333;
 }
 
-
-/* NAVBAR STYLES */
+/* Navbar */
 .navbar {
-  background-color: #343a40;
+  background-color: var(--primary);
   color: white;
   padding: 1rem 2rem;
   display: flex;
   align-items: center;
 }
-
 
 .navbar-left .navbar-brand {
   font-size: 1.5rem;
@@ -274,6 +292,7 @@ header h1 {
   align-items: center;
   gap: 1.5rem;
 }
+
 .navbar-center {
   display: flex;
   justify-content: center;
@@ -283,46 +302,25 @@ header h1 {
 
 .nav-link {
   color: white;
-  font-size: 1rem;
+  font-size: 1.3rem; /* UPDATED */
   text-decoration: none;
+  font-weight: 600;   /* NEW */
 }
 
 .nav-link:hover {
   text-decoration: underline;
+  color: var(--accent); 
 }
 
 .cart-button {
   background: white;
-  color: #343a40;
+  color: var(--primary);
   padding: 0.5rem 1rem;
   border: none;
   font-weight: bold;
   cursor: pointer;
-}
-
-
-.cart-button {
   display: flex;
   align-items: center;
-}
-.navbar-center {
-  display: flex;
-  justify-content: center;
-  flex: 1;
-  gap: 2rem;
-}
-
-
-.navbar .navbar-brand {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.navbar .d-flex button {
-  padding: 0.5rem 1rem;
-  border: 1px solid #000;
-  background: transparent;
-  cursor: pointer;
 }
 
 /* Responsive */
@@ -355,29 +353,33 @@ input, button {
   box-sizing: border-box;
 }
 
-button {
-  background-color: #4CAF50;
-  color: black;
-  border: none;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #45a049;
-  color: white;
-}
-
 #message {
   color: red;
   margin-top: 10px;
   text-align: center;
 }
 
-/* Improve product spacing on medium screens */
+/* === Style for Section Description Text === */
+.container.py-5 > p {
+  font-family: Georgia, serif;
+  font-size: 1.6rem;
+  font-style: italic;
+  font-weight: bold;
+  color: #2c2c2c;
+  text-align: center;
+  margin-top: 2.5rem;
+  margin-bottom: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+/* Medium screen product spacing */
 @media (max-width: 992px) {
   .col {
     flex: 1 1 calc(33.333% - 1.5rem);
     max-width: calc(33.333% - 1.5rem);
   }
 }
-

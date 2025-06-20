@@ -21,7 +21,6 @@ function Buy() {
 </header>
 
       <main className="container py-5">
-        <h1 className="section-title-inline">Buy Clothes</h1>
         <p>Browse and shop quality clothes from other parents.</p>
 
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mt-4">
