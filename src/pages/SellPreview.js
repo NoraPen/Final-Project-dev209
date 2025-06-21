@@ -5,6 +5,7 @@ import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import ProductCard from '../components/ProductCard';
 import { getAuth } from 'firebase/auth';
+import { Link } from 'react-router-dom';
 
 function SellPreview() {
   const location = useLocation();
@@ -66,8 +67,8 @@ function SellPreview() {
     return (
       <>
         <Navbar />
-        <div className="container-sell-page">
-          <h2>Please log in to preview your listing.</h2>
+        <div className="container-sell-page sell-preivew-error">
+          <h2>Please <Link to="/login">log in</Link> to preview your listing.</h2>
         </div>
       </>
     );

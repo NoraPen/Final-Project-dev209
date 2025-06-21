@@ -281,6 +281,7 @@ button:hover {
   padding: 1rem 2rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .navbar-left .navbar-brand {
@@ -298,7 +299,7 @@ button:hover {
 .navbar-center {
   display: flex;
   justify-content: center;
-  flex: 1;
+  
   gap: 2rem;
 }
 
@@ -324,6 +325,17 @@ button:hover {
   display: flex;
   align-items: center;
 }
+.login-button {
+  background: white;
+  color: var(--primary);
+  padding: 0.5rem 1rem;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -523,6 +535,49 @@ input, button {
 .sell-form{
   align-items: left;
   margin-top: 20px;
+}
+
+.sell-preivew-error a {
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.sell-preview-error a:hover {
+  color: #0056b3;
+}
+
+
+/* === Login/Register === */
+.auth-page {
+  width: 90%;
+  max-width: 1140px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.auth-page h2{
+  margin-top: 20px;
+}
+
+.login-error-message {
+  background-color: pink;
+  color: red;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.auth-page button {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.auth-page button:hover {
+  background-color: #e5a9b0;
+  color: white;
 }
 
 /* Medium screen product spacing */
