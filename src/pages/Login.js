@@ -12,15 +12,35 @@ function Login() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  const [errorMessage, setErrorMessage] = useState('');
+
   const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate('/account'); // redirect on success
-    } catch (error) {
-      alert('Login failed: ' + error.message);
+  e.preventDefault();
+  setErrorMessage('');
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    navigate('/account');
+  } catch (error) {
+    switch (error.code) {
+      case 'auth/user-not-found':
+        setErrorMessage('No account found with that email.');
+        break;
+      case 'auth/wrong-password':
+        setErrorMessage('Incorrect password.');
+        break;
+      case 'auth/invalid-email':
+        setErrorMessage('Invalid email address.');
+        break;
+      case 'auth/too-many-requests':
+        setErrorMessage('Too many failed attempts. Try again later.');
+        break;
+      default:
+        setErrorMessage('Login failed. Please try again.');
     }
-  };
+    console.error('Firebase login error:', error.code, error.message); 
+  }
+};
 
   return (
     <><Navbar/>
@@ -42,6 +62,7 @@ function Login() {
           required
         />
         <button type="submit">Log In</button>
+        {errorMessage && <p className="login-error-message">{errorMessage}</p>}
       </form>
       <p>
         Don't have an account? <Link to="/register">Register here</Link>

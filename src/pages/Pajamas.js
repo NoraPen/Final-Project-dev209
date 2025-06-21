@@ -66,7 +66,7 @@ function Pajamas() {
                   <p>{product.price}</p>
                 </div>
                 <div className="card-footer text-center">
-                  <a className="btn btn-primary" href="#">Add to cart</a>
+                  <a className="btn btn-primary" href="#">Add to Cart</a>
                 </div>
               </div>
             </div>
