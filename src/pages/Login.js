@@ -61,7 +61,7 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button className="auth-page-button" type="submit">Log In</button>
+        <button type="submit">Log In</button>
         {errorMessage && <p className="login-error-message">{errorMessage}</p>}
       </form>
       <p>
