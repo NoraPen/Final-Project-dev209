@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import '../style.css';
 
 function UserAccount() {
@@ -63,17 +64,8 @@ function UserAccount() {
         </section>
       </main>
 
-      <footer className="footer-custom">
-        <div className="footer-content">
-          <p>📍 123 Sunshine St, Seattle, WA</p>
-          <p>📞 (123) 456-7890</p>
-          <p>📧 contact@minicloset.com</p>
-          <p>📸 Instagram: @minicloset_app</p>
-        </div>
-        <div className="footer-bottom">
-          <p>© 2025 Mini Closet. All rights reserved.</p>
-        </div>
-      </footer>
+ 
+      <Footer />
     </>
   );
 }

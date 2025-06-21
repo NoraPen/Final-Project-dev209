@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 function SellPreview() {
   const location = useLocation();
@@ -47,17 +48,8 @@ function SellPreview() {
         <button onClick={handleEdit} className="btn">Edit Listing</button>
         <button onClick={handleSubmit} className="btn submit-btn">Submit Listing</button>
       </div>
-      <footer className="footer-custom">
-  <div className="footer-content">
-    <p>📍 123 Sunshine St, Seattle, WA</p>
-    <p>📞 (123) 456-7890</p>
-    <p>📧 contact@minicloset.com</p>
-    <p>📸 Instagram: @minicloset_app</p>
-  </div>
-  <div className="footer-bottom">
-    <p>© 2025 Mini Closet. All rights reserved.</p>
-  </div>
-</footer>
+
+<Footer />
     </>
   );
 }

@@ -4,7 +4,7 @@ import { auth } from '../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-
+import Footer from '../components/Footer';
 
 
 function Login() {
@@ -47,17 +47,8 @@ function Login() {
         Don't have an account? <Link to="/register">Register here</Link>
       </p>
     </div>
-    <footer className="footer-custom">
-  <div className="footer-content">
-    <p>📍 123 Sunshine St, Seattle, WA</p>
-    <p>📞 (123) 456-7890</p>
-    <p>📧 contact@minicloset.com</p>
-    <p>📸 Instagram: @minicloset_app</p>
-  </div>
-  <div className="footer-bottom">
-    <p>© 2025 Mini Closet. All rights reserved.</p>
-  </div>
-</footer>
+ 
+<Footer /> 
 </>
   );
 }
