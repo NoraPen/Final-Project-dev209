@@ -1,26 +1,38 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import '../style.css';
+import '../pages.css';
 
 function SellForm() {
   const navigate = useNavigate();
   const location = useLocation();
-
-  // Pre-fill on back from preview
   const initialData = location.state || {
-    title: '',
-    description: '',
-    price: '',
-    image: '',
-    category: ''
+      title: '',
+      description: '',
+      price: '',
+      image: '',
+      category: ''
+    };
+  
+ 
+  const handlePreview = (e) => {
+    e.preventDefault();
+    navigate('/sell-preview', { state: formData }); // Pass formData to preview
   };
-
+  // Define all state first
   const [title, setTitle] = useState(initialData.title);
   const [description, setDescription] = useState(initialData.description);
   const [price, setPrice] = useState(initialData.price);
   const [image, setImage] = useState(initialData.image);
   const [category, setCategory] = useState(initialData.category);
 
+  // Now use those values safely
+  const formData = {
+    title,
+    price,
+    image
+  };
   const handleNext = (e) => {
     e.preventDefault();
     navigate('/sell-preview', {
@@ -31,8 +43,10 @@ function SellForm() {
   return (
     <>
       <Navbar />
-      <div className="container sell-page">
-        <h2>Sell a Product - Form</h2>
+      <div className="container-sell-form">
+        <h2>Sell Product</h2>
+        
+        <p>Give your children’s clothes a new story by selling them through MiniCloset!</p>
         <form onSubmit={handleNext} className="sell-form">
           <input
             type="text"
@@ -79,7 +93,7 @@ function SellForm() {
             <option value="Swim">Swim</option>
           </select>
 
-          <button type="submit">Preview Listing</button>
+          <button type="submit">Show Preview</button>
         </form>
       </div>
       <footer className="footer-custom">
