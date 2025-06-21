@@ -70,3 +70,131 @@
 .section-menu a:hover {
   color: #007bff;
 }
+
+/* sell page styles */
+.sell-container {
+  max-width: 700px;
+  margin: auto;
+  padding: 2rem 1.5rem;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+}
+
+.welcome-message {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.welcome-message h1 {
+  font-size: 2rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.welcome-message p {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.sell-form {
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+}
+
+.sell-form h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #444;
+}
+
+.sell-form input,
+.sell-form textarea,
+.sell-form select {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.sell-form button {
+  background-color: #f8bbd0; /* soft pink */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sell-form button:hover {
+  background-color: #f48fb1; /* darker pink on hover */
+}
+
+
+.image-preview {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.image-preview img {
+  max-width: 120px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+/* Preview page styles */
+.sell-preview-container {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+}
+
+.confirmation-message h1 {
+  font-size: 2rem;
+  color: #f48fb1;
+  margin-bottom: 0.5rem;
+}
+
+.confirmation-message p {
+  color: #666;
+  margin: 0.3rem 0;
+}
+
+.preview-card {
+  background: #fff0f5;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+  margin-top: 1rem;
+}
+
+.preview-card img.preview-image {
+  max-width: 150px;
+  height: auto;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.submit-btn {
+  background-color: #f8bbd0;
+}
+
+.submit-btn:hover {
+  background-color: #f48fb1;
+  color: white;
+}

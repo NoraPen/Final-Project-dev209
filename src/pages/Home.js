@@ -4,6 +4,8 @@ import '../style.css';
 import '../pages.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { Link } from 'react-router-dom';
+
 
 
 function Home() {
@@ -65,7 +67,7 @@ function Home() {
           <div className="info-text">
             <h2>Good Night</h2>
             <p>30% off select pajamas for a limited time</p>
-            <button className="btn">Shop Now</button>
+            <Link to="/pajamas" className="btn">Shop Now</Link>
           </div>
           <div className="info-image">
             <img src="/images/welcomeslide.png" alt="Promo" />

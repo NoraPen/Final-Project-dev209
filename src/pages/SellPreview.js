@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import '../pages.css';
 
 function SellPreview() {
   const location = useLocation();
@@ -15,11 +16,11 @@ function SellPreview() {
     category: ''
   };
 
-  const [title, setTitle] = useState(initialData.title);
-  const [description, setDescription] = useState(initialData.description);
-  const [price, setPrice] = useState(initialData.price);
-  const [image, setImage] = useState(initialData.image);
-  const [category, setCategory] = useState(initialData.category);
+  const [title] = useState(initialData.title);
+  const [description] = useState(initialData.description);
+  const [price] = useState(initialData.price);
+  const [image] = useState(initialData.image);
+  const [category] = useState(initialData.category);
 
   const handleEdit = () => {
     navigate('/sell', {
@@ -28,28 +29,33 @@ function SellPreview() {
   };
 
   const handleSubmit = () => {
-    alert('Listing submitted!');
+    alert('Your listing is now live!');
   };
 
   return (
     <>
       <Navbar />
-      <div className="container sell-page">
-        <h2>Sell a Product - Preview</h2>
+      <div className="container sell-preview-container">
+        <div className="confirmation-message">
+          <h1>🎉 Congratulations!</h1>
+          <p>Your listing is now live on MiniCloset.</p>
+          <p>We’ll notify you once someone is interested or the item is sold.</p>
+        </div>
 
-        <div className="product-preview">
+        <div className="preview-card">
           {image && <img src={image} alt="Preview" className="preview-image" />}
-          <h3>{title}</h3>
+          <h2>{title}</h2>
           <p><em>Category: {category}</em></p>
           <p>{description}</p>
           <p><strong>${price}</strong></p>
         </div>
 
-        <button onClick={handleEdit} className="btn">Edit Listing</button>
-        <button onClick={handleSubmit} className="btn submit-btn">Submit Listing</button>
+        <div className="button-group">
+          <button onClick={handleEdit} className="btn">Edit Listing</button>
+          <button onClick={handleSubmit} className="btn submit-btn">Submit Listing</button>
+        </div>
       </div>
-
-<Footer />
+      <Footer />
     </>
   );
 }
