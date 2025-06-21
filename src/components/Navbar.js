@@ -5,12 +5,12 @@ function Navbar() {
   return (
     <div className="navbar">
       <div className="navbar-left">
-        <span className="navbar-brand">MiniCloset</span>
+        <span className="navbar-brand"><Link to="/">MiniCloset</Link></span>
       </div>
 
       <div className="navbar-center">
         <Link className="nav-link" to="/">Home</Link>
-        <Link className="nav-link" to="/buy">Buy</Link>
+        <Link className="nav-link" to="/new-arrivals">Buy</Link>
         <Link className="nav-link" to="/sell">Sell</Link>
         <Link className="nav-link" to="/account">My Account</Link>
       </div>
