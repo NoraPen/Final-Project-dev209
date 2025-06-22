@@ -3,36 +3,37 @@ import { Link } from 'react-router-dom';
 import '../style.css';
 import '../pages.css';
 import Navbar from '../components/Navbar';
+import ProductCard from '../components/ProductCard';
 
 function Pajamas() {
   const pajamasProducts = [
     {
-      title: "Blue Striped Pajamas",
+      name: "Blue Striped Pajamas",
       price: "$19.99",
       image: "/images/KidsStripedSnugFit.webp"
     },
     {
-      title: "Navy Striped Pajamas",
+      name: "Navy Striped Pajamas",
       price: "$19.99",
       image: "/images/KidsStriped2.webp"
     },
     {
-      title: "Yellow Cotton Pajamas",
+      name: "Yellow Cotton Pajamas",
       price: "$18.99",
       image: "/images/FitCottonPajamas.webp"
     },
     {
-      title: "Gray Gymmies Pajamas",
+      name: "Gray Gymmies Pajamas",
       price: "$18.99",
       image: "/images/GymmiesGray.webp"
     },
     {
-      title: "Aqua Gymmies Pajamas",
+      name: "Aqua Gymmies Pajamas",
       price: "$18.99",
       image: "/images/GymmiesAqua.webp"
     },
     {
-      title: "7-Pack Boys Briefs",
+      name: "7-Pack Boys Briefs",
       price: "$14.99",
       image: "/images/BoysBriefs7Pack.webp"
     }
@@ -58,18 +59,7 @@ function Pajamas() {
 
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mt-4">
           {pajamasProducts.map((product, index) => (
-            <div className="col" key={index}>
-              <div className="card h-100">
-                <img src={product.image} alt={product.title} />
-                <div className="card-body text-center">
-                  <h5 className="card-title">{product.title}</h5>
-                  <p>{product.price}</p>
-                </div>
-                <div className="card-footer text-center">
-                  <a className="btn btn-primary" href="#">Add to Cart</a>
-                </div>
-              </div>
-            </div>
+            <ProductCard key={index} product={product} />
           ))}
         </div>
       </main>
