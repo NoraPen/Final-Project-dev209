@@ -185,6 +185,7 @@ header h1 {
   overflow: hidden;
   width: 100%;
   background: white;
+  min-height: 300px;
 }
 
 .card img {
@@ -195,6 +196,7 @@ header h1 {
 .card-body {
   padding: 1rem;
   text-align: center;
+ 
 }
 
 .card-footer {
@@ -279,6 +281,7 @@ button:hover {
   padding: 1rem 2rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .navbar-left .navbar-brand {
@@ -296,7 +299,7 @@ button:hover {
 .navbar-center {
   display: flex;
   justify-content: center;
-  flex: 1;
+  
   gap: 2rem;
 }
 
@@ -322,6 +325,17 @@ button:hover {
   display: flex;
   align-items: center;
 }
+.login-button {
+  background: white;
+  color: var(--primary);
+  padding: 0.5rem 1rem;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -374,7 +388,197 @@ input, button {
   margin-right: auto;
 }
 
+/* === User Account Section ===  
+.container-account-section { 
+  background-color: #F6C1C7;
+}*/
 
+
+
+.container-MyAccount {
+  width: 90%;
+  max-width: 1140px;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.container-account-section {
+  padding: 2rem;
+}
+
+/* Horizontal layout for Purchases + Sales */
+.account-row {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* Individual card containers */
+.account-card {
+  flex: 1;
+  min-width: 300px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+.account-card p {
+  text-align: center;
+}
+.account-card a {
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.account-card a:hover {
+  color: #0056b3;
+}
+
+.account-card h3 {
+  text-align: center;
+}
+
+/* Grid layout for cards inside each account section */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Product card styling (on sell page) */
+.card.h-100 {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.card-footer {
+  padding: 1rem;
+  background: #f1f1f1;
+}
+@media (max-width: 768px) {
+  .account-row {
+    flex-direction: column;
+  }
+}
+
+/* === Sell Preview Page === */
+
+.container-sell-page{
+  width: 90%;
+  max-width: 1140px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.container-sell-page h2{
+  text-decoration-style: wavy;
+  margin-top: 20px;
+}
+
+.container-sell-page h3{
+  text-decoration-style: wavy;
+}
+.sell-preview-row {
+  display: flex;
+  align-items: center; /* vertically centers */
+  gap: 1rem;
+}
+
+.sell-preview-col {
+  flex: 1;
+  text-align: left;
+}
+
+.card-col {
+  max-width: 300px; /* card width */
+}
+
+.text-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 1rem;
+}
+/* === Sell Form Page === */
+
+.container-sell-form{
+  width: 90%;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.container-sell-form h2, .container-sell-form p{
+ text-align: center;
+}
+
+.container-sell-form h2 {
+ margin-top: 20px;
+
+} 
+.sell-form{
+  align-items: left;
+  margin-top: 20px;
+}
+
+.sell-preivew-error a {
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.sell-preview-error a:hover {
+  color: #0056b3;
+}
+
+
+/* === Login/Register === */
+.auth-page {
+  width: 90%;
+  max-width: 1140px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.auth-page h2{
+  margin-top: 20px;
+}
+
+.login-error-message {
+  background-color: pink;
+  color: red;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.auth-page button {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.auth-page button:hover {
+  background-color: #e5a9b0;
+  color: white;
+}
 
 /* Medium screen product spacing */
 @media (max-width: 992px) {
