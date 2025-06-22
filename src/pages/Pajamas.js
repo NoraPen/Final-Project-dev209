@@ -85,6 +85,7 @@ function Pajamas() {
         <div className="footer-bottom">
           <p>© 2025 Mini Closet. All rights reserved.</p>
         </div>
+      </footer>
       <Footer />
     </>
   );
