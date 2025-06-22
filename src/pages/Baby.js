@@ -3,7 +3,8 @@ import React from 'react';
 import '../style.css';
 import '../pages.css';
 import Navbar from '../components/Navbar';
-import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
+import { Link } from 'react-router-dom'; 
 
 function Baby() {
   const products = [
@@ -74,17 +75,7 @@ function Baby() {
         </div>
       </main>
 
-      <footer className="footer-custom">
-        <div className="footer-content">
-          <p>📍 123 Sunshine St, Seattle, WA</p>
-          <p>📞 (123) 456-7890</p>
-          <p>📧 contact@minicloset.com</p>
-          <p>📸 Instagram: @minicloset_app</p>
-        </div>
-        <div className="footer-bottom">
-          <p>© 2025 Mini Closet. All rights reserved.</p>
-        </div>
-      </footer>
+      <Footer /> 
     </>
   );
 }

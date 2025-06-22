@@ -1,19 +1,12 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../firebase';
-import ProductCard from '../components/ProductCard';
-import { getAuth } from 'firebase/auth';
-import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
+import '../pages.css';
 
 function SellPreview() {
   const location = useLocation();
   const navigate = useNavigate();
-  const auth = getAuth();
-  const currentUser = auth.currentUser;
-
-  
 
   const initialData = location.state || {
     title: '',
@@ -23,11 +16,11 @@ function SellPreview() {
     category: ''
   };
 
-  const [title, setTitle] = useState(initialData.title);
-  const [description, setDescription] = useState(initialData.description);
-  const [price, setPrice] = useState(initialData.price);
-  const [image, setImage] = useState(initialData.image);
-  const [category, setCategory] = useState(initialData.category);
+  const [title] = useState(initialData.title);
+  const [description] = useState(initialData.description);
+  const [price] = useState(initialData.price);
+  const [image] = useState(initialData.image);
+  const [category] = useState(initialData.category);
 
   const handleEdit = () => {
     navigate('/sell', {
@@ -35,85 +28,34 @@ function SellPreview() {
     });
   };
 
-  const handleSubmit = async () => {
-    try {
-      const docRef = await addDoc(collection(db, 'products'), {
-        title,
-        description,
-        price: Number(price),
-        image,
-        category,
-        createdAt: new Date(),
-        sellerId: currentUser.uid,
-      });
-
-      await addDoc(collection(db, 'userSales'), {
-      productId: docRef.id,
-      sellerId: currentUser.uid,
-      title,
-      price: Number(price),
-      createdAt: new Date(),
-      soldAt: null,
-    });
-      alert('Listing submitted!');
-      navigate('/new-arrivals'); // Redirect to buy page after submit
-    } catch (err) {
-      alert('Error submitting listing: ' + err.message);
-    }
+  const handleSubmit = () => {
+    alert('Your listing is now live!');
   };
-
-  //only show if logged in
-   if (!currentUser) {
-    return (
-      <>
-        <Navbar />
-        <div className="container-sell-page sell-preivew-error">
-          <h2>Please <Link to="/login">log in</Link> to preview your listing.</h2>
-        </div>
-      </>
-    );
-  }
 
   return (
     <>
       <Navbar />
-      <div className="container-sell-page">
-        <h2>Sell Product</h2>
-        <h3>Preview</h3> 
-
-        <div className="sell-preview-row">
-          <div className="sell-preview-col card-col">
-            <ProductCard
-              image={image}
-              title={title}
-              price={price}
-              buttonText="Edit Listing"
-              buttonLink="#"
-            />
-          </div>
-          <div className="sell-preview-col text-col">
-            <p><strong>Title:</strong> {title}</p>
-            <p><em>Category:</em> {category}</p>
-            <p>Description: {description}</p>
-            <p>Price: ${Number(price).toFixed(2)}</p>
-          </div>
+      <div className="container sell-preview-container">
+        <div className="confirmation-message">
+          <h1>🎉 Congratulations!</h1>
+          <p>Your listing is now live on MiniCloset.</p>
+          <p>We’ll notify you once someone is interested or the item is sold.</p>
         </div>
 
-        <button onClick={handleEdit} className="btn">Edit Listing</button>
-        <button onClick={handleSubmit} className="btn submit-btn">Submit Listing</button>
+        <div className="preview-card">
+          {image && <img src={image} alt="Preview" className="preview-image" />}
+          <h2>{title}</h2>
+          <p><em>Category: {category}</em></p>
+          <p>{description}</p>
+          <p><strong>${price}</strong></p>
+        </div>
+
+        <div className="button-group">
+          <button onClick={handleEdit} className="btn">Edit Listing</button>
+          <button onClick={handleSubmit} className="btn submit-btn">Submit Listing</button>
+        </div>
       </div>
-
-      <footer className="footer-custom">
-        <div className="footer-content">
-          <p>📍 123 Sunshine St, Seattle, WA</p>
-          <p>📞 (123) 456-7890</p>
-          <p>📧 contact@minicloset.com</p>
-          <p>📸 Instagram: @minicloset_app</p>
-        </div>
-        <div className="footer-bottom">
-          <p>© 2025 Mini Closet. All rights reserved.</p>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }
