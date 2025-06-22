@@ -1,21 +1,41 @@
-// src/components/ProductCard.js
 import React from 'react';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { auth, db } from '../firebase';
 
-function ProductCard({ image, title, price, buttonText, buttonLink }) {
+function ProductCard({ product }) {
+  const handleBuyNow = async () => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert('Please log in to buy.');
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, 'orders'), {
+        userId: user.uid,
+        productName: product.name,
+        productPrice: product.price,
+        productImage: product.image,
+        timestamp: serverTimestamp()
+      });
+      alert('Purchase successful!');
+    } catch (error) {
+      console.error('Error saving order:', error);
+      alert('Failed to complete purchase.');
+    }
+  };
+
   return (
-    <div className="card h-100">
-      <img
-        src={image || "https://dummyimage.com/450x300/dee2e6/6c757d.jpg"}
-        alt={title || "Product"}
-      />
-      <div className="card-body text-center">
-        <h5 className="card-title">{title || "Product"}</h5>
-        <p className="price">${Number(price).toFixed(2)}</p>
-      </div>
-      <div className="card-footer text-center">
-        <a className="btn btn-primary" href={buttonLink || "#"}>
-          {buttonText || "View"}
-        </a>
+    <div className="col">
+      <div className="card">
+        <img src={product.image} alt={product.name} />
+        <div className="card-body">
+          <h5 className="card-title">{product.name}</h5>
+          <p>{product.price}</p>
+        </div>
+        <div className="card-footer">
+          <button className="btn btn-primary" onClick={handleBuyNow}>Buy Now</button>
+        </div>
       </div>
     </div>
   );
