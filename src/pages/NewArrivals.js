@@ -5,38 +5,46 @@ import '../pages.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
+import ProductCard from '../components/ProductCard';
+
 
 function NewArrivals() {
   const products = [
     {
-      src: '/images/EyeletRuffleRomper.webp',
+      image: '/images/EyeletRuffleRomper.webp',
       title: 'Eyelet Ruffle Romper',
       price: '$14.99',
+      category: ['New-Arrivals']
     },
     {
-      src: '/images/toddlerdenim.webp',
+      image: '/images/toddlerdenim.webp',
       title: 'Toddler Denim Overalls',
       price: '$18.99',
+      category: ['New-Arrivals']
     },
     {
-      src: '/images/BoysSwimTrunks.webp',
+      image: '/images/BoysSwimTrunks.webp',
       title: 'Boys Swim Trunks',
       price: '$12.49',
+      category: ['New-Arrivals']
     },
     {
-      src: '/images/pinkdress.webp',
+      image: '/images/pinkdress.webp',
       title: 'Pink Tiered Dress',
       price: '$15.99',
+      category: ['New-Arrivals']
     },
     {
-      src: '/images/GirlsQuickDry.webp',
+      image: '/images/GirlsQuickDry.webp',
       title: 'Girls Quick-Dry Top',
       price: '$9.99',
+      category: ['New-Arrivals']
     },
     {
-      src: '/images/BoysQuickDry.webp',
+      image: '/images/BoysQuickDry.webp',
       title: 'Boys Quick-Dry Shorts',
       price: '$10.99',
+      category: ['New-Arrivals']
     },
   ];
 
@@ -59,18 +67,7 @@ function NewArrivals() {
 
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mt-4">
           {products.map((product, index) => (
-            <div className="col" key={index}>
-              <div className="card h-100">
-                <img src={product.src} alt={product.title} />
-                <div className="card-body text-center">
-                  <h5 className="card-title">{product.title}</h5>
-                  <p>{product.price}</p>
-                </div>
-                <div className="card-footer text-center">
-                  <a className="btn btn-primary" href="#">Add to cart</a>
-                </div>
-              </div>
-            </div>
+            <ProductCard key={index} product={product} />
           ))}
         </div>
       </main>

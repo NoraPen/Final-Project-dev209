@@ -5,38 +5,45 @@ import '../pages.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom'; 
+import ProductCard from '../components/ProductCard';
 
 function Baby() {
   const products = [
     {
-      src: '/images/BabyGirlsEmbroideredSweater.webp',
+      image: '/images/BabyGirlsEmbroideredSweater.webp',
       title: 'Embroidered Sweater Set',
       price: '$19.99',
+      category: ['Baby'],
     },
     {
-      src: '/images/BabyGirlsFloralDress.webp',
+      image: '/images/BabyGirlsFloralDress.webp',
       title: 'Floral Dress Set',
       price: '$17.99',
+      category: ['Baby'],
     },
     {
-      src: '/images/BabyStripedSnugFit.webp',
+      image: '/images/BabyStripedSnugFit.webp',
       title: 'Pink Striped Footed Sleeper',
       price: '$12.99',
+      category: ['Baby'],
     },
     {
-      src: '/images/BabyBoysMarledSweater.webp',
+      image: '/images/BabyBoysMarledSweater.webp',
       title: 'Marled Sweater Set',
       price: '$19.99',
+      category: ['Baby'],
     },
     {
-      src: '/images/BabyBoysAnimalBodysuit3.webp',
+      image: '/images/BabyBoysAnimalBodysuit3.webp',
       title: 'Animal Bodysuits (3-Pack)',
       price: '$16.49',
+      category: ['Baby'],
     },
     {
-      src: '/images/BabySweaterRomper.webp',
+      image: '/images/BabySweaterRomper.webp',
       title: 'Knit Sweater Romper',
       price: '$21.99',
+      category: ['Baby'],
     },
   ];
 
@@ -59,18 +66,7 @@ function Baby() {
 
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mt-4">
           {products.map((product, index) => (
-            <div className="col" key={index}>
-              <div className="card h-100">
-                <img src={product.src} alt={product.title} />
-                <div className="card-body text-center">
-                  <h5 className="card-title">{product.title}</h5>
-                  <p>{product.price}</p>
-                </div>
-                <div className="card-footer text-center">
-                  <a className="btn" href="#">Add to cart</a>
-                </div>
-              </div>
-            </div>
+            <ProductCard key={index} product={product} />
           ))}
         </div>
       </main>

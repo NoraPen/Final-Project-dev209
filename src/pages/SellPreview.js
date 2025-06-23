@@ -51,8 +51,8 @@ function SellPreview() {
         </div>
 
         <div className="button-group">
-          <button onClick={handleEdit} className="btn">Edit Listing</button>
-          <button onClick={handleSubmit} className="btn submit-btn">Submit Listing</button>
+          <button onClick={handleEdit} className="btn">See Listing</button>
+          <button onClick={handleSubmit} className="btn submit-btn">Sell Another Item</button>
         </div>
       </div>
       <Footer />
