@@ -14,7 +14,7 @@ import Baby from './pages/Baby';
 import Swim from './pages/Swim';
 import Login from './pages/Login';
 import Register from './pages/Register';
-
+import UploadBabyProducts from './pages/Admin';
 function AppRouter() {
   return (
     <Router>
@@ -32,6 +32,7 @@ function AppRouter() {
         <Route path="/swim" element={<Swim />} />
         <Route path="/login" element={<Login />} />       
         <Route path="/register" element={<Register />} />
+        <Route path="/upload-baby" element={<UploadBabyProducts />} />
       </Routes>
     </Router>
   );

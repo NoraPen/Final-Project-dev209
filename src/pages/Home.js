@@ -5,50 +5,59 @@ import '../pages.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
+import ProductCard from '../components/ProductCard';
 
 
 
 function Home() {
   const products = [
     {
-      src: "/images/BabyBoysTShirt.webp",
+      image: "/images/BabyBoysTShirt.webp",
       title: "Shark Tee & Shorts Set",
       price: "$9.99",
+      category: ['Home']
     },
     {
-      src: "/images/GerberBaby.webp",
+      image: "/images/GerberBaby.webp",
       title: "Neutral Baby Bodysuits",
       price: "$11.99",
+      category: ['Home']
     },
     {
-      src: "/images/toddlerpants.webp",
+      image: "/images/toddlerpants.webp",
       title: "Toddler Stretch Jeans",
       price: "$15.49",
+      category: ['Home']
     },
     {
-      src: "/images/toddlershorts.webp",
+      image: "/images/toddlershorts.webp",
       title: "Red Rashguard & Shorts",
       price: "$14.29",
+      category: ['Home']
     },
     {
-      src: "/images/boylong.webp",
+      image: "/images/boylong.webp",
       title: "Boys Light Blue Dress Shirt",
       price: "$13.99",
+      category: ['Home']
     },
     {
-      src: "/images/boyblouse.webp",
+      image: "/images/boyblouse.webp",
       title: "Boys Shark Print Shirt",
       price: "$12.99",
+      category: ['Home']
     },
     {
-      src: "/images/girlblouse.webp",
+      image: "/images/girlblouse.webp",
       title: "Girls Black Halter Top",
       price: "$10.99",
+      category: ['Home']
     },
     {
-      src: "/images/girldress.webp",
+      image: "/images/girldress.webp",
       title: "Girls Pink Summer Dress",
       price: "$16.99",
+      category: ['Home']
     },
   ];
 
@@ -80,18 +89,7 @@ function Home() {
         <h3 className="section-title-inline">We Think You Will Love These</h3>
         <div className="row">
           {products.map((product, index) => (
-            <div className="col" key={index}>
-              <div className="card h-100">
-                <img src={product.src} alt={product.title} />
-                <div className="card-body text-center">
-                  <h5 className="card-title">{product.title}</h5>
-                  <p>{product.price}</p>
-                </div>
-                <div className="card-footer text-center">
-                  <a className="btn" href="#">Add to cart</a>
-                </div>
-              </div>
-            </div>
+            <ProductCard key={index} product={product} />
           ))}
         </div>
       </div>

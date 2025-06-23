@@ -5,39 +5,46 @@ import '../style.css';
 import '../pages.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import ProductCard from '../components/ProductCard';
 
 
 function Swim() {
   const swimProducts = [
     {
-      src: '/images/GirlsFloralBow.webp',
+      image: '/images/GirlsFloralBow.webp',
       title: 'Girls Floral Bow Swimsuit',
       price: '$16.99',
+      category: ['Swim']
     },
     {
-      src: '/images/GirlsVacationOneShoulder.webp',
+      image: '/images/GirlsVacationOneShoulder.webp',
       title: 'Girls Vacation One-Shoulder',
       price: '$17.99',
+      category: ['Swim']
     },
     {
-      src: '/images/GirlsStrawberryOne.webp',
+      image: '/images/GirlsStrawberryOne.webp',
       title: 'Girls Strawberry Swimsuit',
       price: '$18.50',
+      category: ['Swim']
     },
     {
-      src: '/images/BoysSharkRashguard.webp',
+      image: '/images/BoysSharkRashguard.webp',
       title: 'Boys Shark Rashguard',
       price: '$14.99',
+      category: ['Swim']
     },
     {
-      src: '/images/BoysFlamingoSwim.webp',
+      image: '/images/BoysFlamingoSwim.webp',
       title: 'Boys Flamingo Swim Trunks',
       price: '$16.99',
+      category: ['Swim']
     },
     {
-      src: '/images/BoysStripedZip.webp',
+      image: '/images/BoysStripedZip.webp',
       title: 'Boys Striped Zip Rashguard',
       price: '$15.50',
+      category: ['Swim']
     },
   ];
 
@@ -60,19 +67,8 @@ function Swim() {
         <p>Fun and colorful swimwear for kids of all ages. Dive into the styles!</p>
 
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mt-4">
-          {swimProducts.map((item, index) => (
-            <div className="col" key={index}>
-              <div className="card h-100">
-                <img src={item.src} alt={item.title} className="card-img-top" />
-                <div className="card-body text-center">
-                  <h5 className="card-title">{item.title}</h5>
-                  <p>{item.price}</p>
-                </div>
-                <div className="card-footer text-center">
-                  <a className="btn btn-primary" href="#">Add to cart</a>
-                </div>
-              </div>
-            </div>
+          {swimProducts.map((product, index) => (
+            <ProductCard key={index} product={product} />
           ))}
         </div>
       </main>

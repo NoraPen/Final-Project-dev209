@@ -5,39 +5,46 @@ import '../style.css';
 import '../pages.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import ProductCard from '../components/ProductCard';
 
 
 function Girls() {
   const products = [
     {
-      src: '/images/BlendTieredDress.webp',
+      image: '/images/BlendTieredDress.webp',
       title: 'Blue Leaf Tiered Dress',
       price: '$17.99',
+      category: ['Girls']
     },
     {
-      src: '/images/GirlsLaceUpLeggings.webp',
+      image: '/images/GirlsLaceUpLeggings.webp',
       title: 'Lace-Up Mint Leggings',
       price: '$11.49',
+      category: ['Girls']
     },
     {
-      src: '/images/GirlsFlowerSlides.webp',
+      image: '/images/GirlsFlowerSlides.webp',
       title: 'Pink Flower Slides',
       price: '$13.99',
+      category: ['Girls']
     },
     {
-      src: '/images/GirlsFauxPearlCardigan.webp',
+      image: '/images/GirlsFauxPearlCardigan.webp',
       title: 'Faux Pearl Cardigan',
       price: '$18.99',
+      category: ['Girls']
     },
     {
-      src: '/images/GirlsCherryRuffleDress.webp',
+      image: '/images/GirlsCherryRuffleDress.webp',
       title: 'Cherry Ruffle Dress',
       price: '$16.49',
+      category: ['Girls']
     },
     {
-      src: '/images/GirlsCherryHeartBag.webp',
+      image: '/images/GirlsCherryHeartBag.webp',
       title: 'Cherry Heart Purse',
       price: '$10.99',
+      category: ['Girls']
     },
   ];
 
@@ -61,18 +68,7 @@ function Girls() {
 
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mt-4">
           {products.map((product, index) => (
-            <div className="col" key={index}>
-              <div className="card h-100">
-                <img src={product.src} alt={product.title} />
-                <div className="card-body text-center">
-                  <h5 className="card-title">{product.title}</h5>
-                  <p>{product.price}</p>
-                </div>
-                <div className="card-footer text-center">
-                  <a className="btn btn-primary" href="#">Add to cart</a>
-                </div>
-              </div>
-            </div>
+            <ProductCard key={index} product={product} />
           ))}
         </div>
       </main>

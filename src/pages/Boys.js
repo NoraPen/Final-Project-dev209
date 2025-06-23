@@ -5,38 +5,45 @@ import '../style.css';
 import '../pages.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import ProductCard from '../components/ProductCard';
 
 function Boys() {
   const products = [
     {
-      src: "/images/KidsLinenBlend.webp",
+      image: "/images/KidsLinenBlend.webp",
       title: "Kids Linen-Blend Shorts",
       price: "$11.99",
+      category: ['Boys']
     },
     {
-      src: "/images/KidsRollCuff.webp",
+      image: "/images/KidsRollCuff.webp",
       title: "Roll-Cuff White Pants",
       price: "$14.99",
+      category: ['Boys']
     },
     {
-      src: "/images/KidsEmbroideredTropical.webp",
+      image: "/images/KidsEmbroideredTropical.webp",
       title: "Embroidered Tropical Set",
       price: "$16.99",
+      category: ['Boys']
     },
     {
-      src: "/images/BoysDinoSwimTrunks.webp",
+      image: "/images/BoysDinoSwimTrunks.webp",
       title: "Boys Dino Swim Trunks",
       price: "$13.49",
+      category: ['Boys']
     },
     {
-      src: "/images/BoysDinoRashguard.webp",
+      image: "/images/BoysDinoRashguard.webp",
       title: "Boys Dino Rashguard",
       price: "$12.79",
+      category: ['Boys']
     },
     {
-      src: "/images/BoysCanvasSlip.webp",
+      image: "/images/BoysCanvasSlip.webp",
       title: "Boys Canvas Slip Shoes",
       price: "$17.99",
+      category: ['Boys']
     },
   ];
 
@@ -60,18 +67,7 @@ function Boys() {
 
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mt-4">
           {products.map((product, index) => (
-            <div className="col" key={index}>
-              <div className="card h-100">
-                <img src={product.src} alt={product.title} />
-                <div className="card-body text-center">
-                  <h5 className="card-title">{product.title}</h5>
-                  <p>{product.price}</p>
-                </div>
-                <div className="card-footer text-center">
-                  <a className="btn btn-primary" href="#">Add to cart</a>
-                </div>
-              </div>
-            </div>
+            <ProductCard key={index} product={product} />
           ))}
         </div>
       </main>

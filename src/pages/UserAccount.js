@@ -5,6 +5,8 @@ import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { collection, query, where, getDocs, getFirestore } from 'firebase/firestore';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import ProductCard from '../components/ProductCard';
+import { onSnapshot } from 'firebase/firestore';
 import '../style.css';
 import '../pages.css';
 
@@ -37,23 +39,24 @@ function UserAccount() {
 
   // Fetch purchases and sales from Firestore
   useEffect(() => {
-    if (!user) return;
+  if (!user) return;
 
-    const fetchData = async () => {
-      const purchaseQuery = query(collection(db, 'purchases'), where('userId', '==', user.uid));
-      const salesQuery = query(collection(db, 'products'), where('sellerId', '==', user.uid));
+  const purchaseQuery = query(collection(db, 'orders'), where('userId', '==', user.uid));
+  const salesQuery = query(collection(db, 'products'), where('sellerId', '==', user.uid));
 
-      const [purchaseSnap, salesSnap] = await Promise.all([
-        getDocs(purchaseQuery),
-        getDocs(salesQuery),
-      ]);
+  const unsubscribePurchases = onSnapshot(purchaseQuery, (snapshot) => {
+    setPurchases(snapshot.docs.map(doc => doc.data()));
+  });
 
-      setPurchases(purchaseSnap.docs.map(doc => doc.data()));
-      setSales(salesSnap.docs.map(doc => doc.data()));
-    };
+  const unsubscribeSales = onSnapshot(salesQuery, (snapshot) => {
+    setSales(snapshot.docs.map(doc => doc.data()));
+  });
 
-    fetchData();
-  }, [user, db]);
+  return () => {
+    unsubscribePurchases();
+    unsubscribeSales();
+  };
+}, [user, db]);
 
   const handleLogout = async () => {
     await signOut(auth);
@@ -81,65 +84,64 @@ function UserAccount() {
         </header>
 
         <section className="container-account-section">
-  <div className="account-row">
-    {/* Purchases Section */}
-    <div className="account-card">
-      <h3>Purchases</h3>
-      {purchases.length > 0 ? (
-        <div className="card-grid">
-          {purchases.map((item, i) => (
-            <div className="card h-100" key={i}>
-              <img
-                src={item.image || "https://dummyimage.com/450x300/dee2e6/6c757d.jpg"}
-                alt={item.title || "Product"}
-              />
-              <div className="card-body text-center">
-                <h5 className="card-title">{item.title || "Product"}</h5>
-                <p>${item.price?.toFixed(2) || "0.00"}</p>
-              </div>
-              <div className="card-footer text-center">
-                <a className="btn btn-primary" href="/new-arrivals">View More</a>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p>You haven’t bought anything yet. <a href="/new-arrivals">Start shopping</a></p>
-      )}
-    </div>
+          <div className="account-row">
 
-    {/* Sales Section */}
-    <div className="account-card">
-      <h3>Sales</h3>
-      {sales.length > 0 ? (
-        <div className="card-grid">
-          {sales.map((item, i) => (
-            <div className="card h-100" key={i}>
-              <img
-                src={item.image || "https://dummyimage.com/450x300/dee2e6/6c757d.jpg"}
-                alt={item.title || "Product"}
-              />
-              <div className="card-body text-center">
-                <h5 className="card-title">{item.title || "Product"}</h5>
-                <p>${item.price?.toFixed(2) || "0.00"}</p>
-              </div>
-              <div className="card-footer text-center">
-                <a className="btn btn-primary" href="/sell">Edit Listing</a>
-              </div>
+            {/* Purchases Section */}
+            <div className="account-card">
+              <h3>Purchases</h3>
+              {purchases.length > 0 ? (
+                <div className="row">
+                  {purchases.map((item, i) => (
+                    <ProductCard
+                      key={i}
+                      product={{
+                        title: item.productName || "Product",
+                        price: item.productPrice || 0,
+                        image: item.productImage || "https://dummyimage.com/450x300/dee2e6/6c757d.jpg",
+                      }}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <p>You haven’t bought anything yet. <a href="/new-arrivals">Start shopping</a></p>
+              )}
             </div>
-          ))}
-        </div>
-      ) : (
-        <p>You haven’t sold anything yet. <a href="/sell">List an item</a></p>
-      )}
-    </div>
-  </div>
 
-  {/* Logout button (optional: move elsewhere if needed) */}
-  <div style={{ marginTop: '2rem', textAlign: 'center' }}>
-    <button className="btn" onClick={handleLogout}>Log Out</button>
-  </div>
-</section>
+            {/* Sales Section */}
+            <div className="account-card">
+              <h3>Sales</h3>
+              {sales.length > 0 ? (
+                <div className="row">
+                  {sales.map((item, i) => (
+                    <div className="col" key={i}>
+                      <div className="card h-100">
+                        <img
+                          src={item.image || "https://dummyimage.com/450x300/dee2e6/6c757d.jpg"}
+                          alt={item.title || "Product"}
+                        />
+                        <div className="card-body text-center">
+                          <h5 className="card-title">{item.title || "Product"}</h5>
+                          <p>${item.price?.toFixed(2) || "0.00"}</p>
+                        </div>
+                        <div className="card-footer text-center">
+                          <a className="btn btn-primary" href="/sell">Edit Listing</a>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p>You haven’t sold anything yet. <a href="/sell">List an item</a></p>
+              )}
+            </div>
+
+          </div>
+
+          {/* Logout button */}
+          <div style={{ marginTop: '2rem', textAlign: 'center' }}>
+            <button className="btn" onClick={handleLogout}>Log Out</button>
+          </div>
+        </section>
       </main>
 
  

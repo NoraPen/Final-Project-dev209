@@ -50,7 +50,7 @@ function SellForm() {
   const handleNext = (e) => {
     e.preventDefault();
     navigate('/sell-preview', {
-      state: { title, description, price, image, category }
+      state: { title, description, price, image, category: ['New-arrivals', category] }
     });
   };
 
@@ -124,12 +124,11 @@ function SellForm() {
             <option value="Baby">Baby</option>
             <option value="Boys">Boys</option>
             <option value="Girls">Girls</option>
-            <option value="NewArrivals">New Arrivals</option>
             <option value="Pajamas">Pajamas</option>
             <option value="Swim">Swim</option>
           </select>
 
-          <button type="submit">Preview Listing</button>
+          <button type="submit">Submit Listing</button>
         </form>
       </div>
       <Footer />
