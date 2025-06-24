@@ -1,65 +1,29 @@
 // src/pages/Home.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../style.css';
 import '../pages.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
-
-
+import { collection, query, where, onSnapshot, getFirestore } from 'firebase/firestore';
 
 function Home() {
-  const products = [
-    {
-      image: "/images/BabyBoysTShirt.webp",
-      title: "Shark Tee & Shorts Set",
-      price: "$9.99",
-      category: ['Home']
-    },
-    {
-      image: "/images/GerberBaby.webp",
-      title: "Neutral Baby Bodysuits",
-      price: "$11.99",
-      category: ['Home']
-    },
-    {
-      image: "/images/toddlerpants.webp",
-      title: "Toddler Stretch Jeans",
-      price: "$15.49",
-      category: ['Home']
-    },
-    {
-      image: "/images/toddlershorts.webp",
-      title: "Red Rashguard & Shorts",
-      price: "$14.29",
-      category: ['Home']
-    },
-    {
-      image: "/images/boylong.webp",
-      title: "Boys Light Blue Dress Shirt",
-      price: "$13.99",
-      category: ['Home']
-    },
-    {
-      image: "/images/boyblouse.webp",
-      title: "Boys Shark Print Shirt",
-      price: "$12.99",
-      category: ['Home']
-    },
-    {
-      image: "/images/girlblouse.webp",
-      title: "Girls Black Halter Top",
-      price: "$10.99",
-      category: ['Home']
-    },
-    {
-      image: "/images/girldress.webp",
-      title: "Girls Pink Summer Dress",
-      price: "$16.99",
-      category: ['Home']
-    },
-  ];
+  const [products, setProducts] = useState([]);
+  const db = getFirestore();
+
+  useEffect(() => {
+    const q = query(
+      collection(db, "products"),
+      where("category", "array-contains", "Home")
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setProducts(data);
+    });
+
+    return () => unsubscribe();
+  }, [db]);
 
   return (
     <>
@@ -88,9 +52,13 @@ function Home() {
       <div className="container">
         <h3 className="section-title-inline">We Think You Will Love These</h3>
         <div className="row">
-          {products.map((product, index) => (
-            <ProductCard key={index} product={product} />
-          ))}
+          {products.length ? (
+            products.map(product => (
+              <ProductCard key={product.id} product={product} />
+            ))
+          ) : (
+            <p>Loading products...</p>
+          )}
         </div>
       </div>
 
@@ -100,3 +68,4 @@ function Home() {
 }
 
 export default Home;
+

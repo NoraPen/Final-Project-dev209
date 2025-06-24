@@ -1,0 +1,268 @@
+[
+  {
+    "image": "/images/BabyGirlsEmbroideredSweater.webp",
+    "title": "Embroidered Sweater Set",
+    "price": "19.99",
+    "category": ["Baby"]
+  },
+  {
+    "image": "/images/BabyGirlsFloralDress.webp",
+    "title": "Floral Dress Set",
+    "price": "17.99",
+    "category": ["Baby"]
+  },
+  {
+    "image": "/images/BabyStripedSnugFit.webp",
+    "title": "Pink Striped Footed Sleeper",
+    "price": "12.99",
+    "category": ["Baby"]
+  },
+  {
+    "image": "/images/BabyBoysMarledSweater.webp",
+    "title": "Marled Sweater Set",
+    "price": "19.99",
+    "category": ["Baby"]
+  },
+  {
+    "image": "/images/BabyBoysAnimalBodysuit3.webp",
+    "title": "Animal Bodysuits (3-Pack)",
+    "price": "16.49",
+    "category": ["Baby"]
+  },
+  {
+    "image": "/images/BabySweaterRomper.webp",
+    "title": "Knit Sweater Romper",
+    "price": "21.99",
+    "category": ["Baby"]
+  },
+  {
+    "image": "/images/KidsLinenBlend.webp",
+    "title": "Kids Linen-Blend Shorts",
+    "price": "$11.99",
+    "category": ["Boys"]
+  },
+  {
+    "image": "/images/KidsRollCuff.webp",
+    "title": "Roll-Cuff White Pants",
+    "price": "$14.99",
+    "category": ["Boys"]
+  },
+  {
+    "image": "/images/KidsEmbroideredTropical.webp",
+    "title": "Embroidered Tropical Set",
+    "price": "$16.99",
+    "category": ["Boys"]
+  },
+  {
+    "image": "/images/BoysDinoSwimTrunks.webp",
+    "title": "Boys Dino Swim Trunks",
+    "price": "$13.49",
+    "category": ["Boys"]
+  },
+  {
+    "image": "/images/BoysDinoRashguard.webp",
+    "title": "Boys Dino Rashguard",
+    "price": "$12.79",
+    "category": ["Boys"]
+  },
+  {
+    "image": "/images/BoysCanvasSlip.webp",
+    "title": "Boys Canvas Slip Shoes",
+    "price": "$17.99",
+    "category": ["Boys"]
+  },
+
+  {
+    "image": "/images/BlendTieredDress.webp",
+    "title": "Blue Leaf Tiered Dress",
+    "price": "$17.99",
+    "category": ["Girls"]
+  },
+  {
+    "image": "/images/GirlsLaceUpLeggings.webp",
+    "title": "Lace-Up Mint Leggings",
+    "price": "$11.49",
+    "category": ["Girls"]
+  },
+  {
+    "image": "/images/GirlsFlowerSlides.webp",
+    "title": "Pink Flower Slides",
+    "price": "$13.99",
+    "category": ["Girls"]
+  },
+  {
+    "image": "/images/GirlsFauxPearlCardigan.webp",
+    "title": "Faux Pearl Cardigan",
+    "price": "$18.99",
+    "category": ["Girls"]
+  },
+  {
+    "image": "/images/GirlsCherryRuffleDress.webp",
+    "title": "Cherry Ruffle Dress",
+    "price": "$16.49",
+    "category": ["Girls"]
+  },
+  {
+    "image": "/images/GirlsCherryHeartBag.webp",
+    "title": "Cherry Heart Purse",
+    "price": "$10.99",
+    "category": ["Girls"]
+  },
+
+  {
+    "image": "/images/BabyBoysTShirt.webp",
+    "title": "Shark Tee & Shorts Set",
+    "price": "$9.99",
+    "category": ["Home"]
+  },
+  {
+    "image": "/images/GerberBaby.webp",
+    "title": "Neutral Baby Bodysuits",
+    "price": "$11.99",
+    "category": ["Home"]
+  },
+  {
+    "image": "/images/toddlerpants.webp",
+    "title": "Toddler Stretch Jeans",
+    "price": "$15.49",
+    "category": ["Home"]
+  },
+  {
+    "image": "/images/toddlershorts.webp",
+    "title": "Red Rashguard & Shorts",
+    "price": "$14.29",
+    "category": ["Home"]
+  },
+  {
+    "image": "/images/boylong.webp",
+    "title": "Boys Light Blue Dress Shirt",
+    "price": "$13.99",
+    "category": ["Home"]
+  },
+  {
+    "image": "/images/boyblouse.webp",
+    "title": "Boys Shark Print Shirt",
+    "price": "$12.99",
+    "category": ["Home"]
+  },
+  {
+    "image": "/images/girlblouse.webp",
+    "title": "Girls Black Halter Top",
+    "price": "$10.99",
+    "category": ["Home"]
+  },
+  {
+    "image": "/images/girldress.webp",
+    "title": "Girls Pink Summer Dress",
+    "price": "$16.99",
+    "category": ["Home"]
+  },
+  {
+    "image": "/images/EyeletRuffleRomper.webp",
+    "title": "Eyelet Ruffle Romper",
+    "price": "$14.99",
+    "category": ["New-Arrivals"]
+  },
+  {
+    "image": "/images/toddlerdenim.webp",
+    "title": "Toddler Denim Overalls",
+    "price": "$18.99",
+    "category": ["New-Arrivals"]
+  },
+  {
+    "image": "/images/BoysSwimTrunks.webp",
+    "title": "Boys Swim Trunks",
+    "price": "$12.49",
+    "category": ["New-Arrivals"]
+  },
+  {
+    "image": "/images/pinkdress.webp",
+    "title": "Pink Tiered Dress",
+    "price": "$15.99",
+    "category": ["New-Arrivals"]
+  },
+  {
+    "image": "/images/GirlsQuickDry.webp",
+    "title": "Girls Quick-Dry Top",
+    "price": "$9.99",
+    "category": ["New-Arrivals"]
+  },
+  {
+    "image": "/images/BoysQuickDry.webp",
+    "title": "Boys Quick-Dry Shorts",
+    "price": "$10.99",
+    "category": ["New-Arrivals"]
+  },
+  {
+    "title": "Blue Striped Pajamas",
+    "price": "$19.99",
+    "image": "/images/KidsStripedSnugFit.webp",
+    "category": ["Pajamas"]
+  },
+  {
+    "title": "Navy Striped Pajamas",
+    "price": "$19.99",
+    "image": "/images/KidsStriped2.webp",
+    "category": ["Pajamas"]
+  },
+  {
+    "title": "Yellow Cotton Pajamas",
+    "price": "$18.99",
+    "image": "/images/FitCottonPajamas.webp",
+    "category": ["Pajamas"]
+  },
+  {
+    "title": "Gray Gymmies Pajamas",
+    "price": "$18.99",
+    "image": "/images/GymmiesGray.webp",
+    "category": ["Pajamas"]
+  },
+  {
+    "title": "Aqua Gymmies Pajamas",
+    "price": "$18.99",
+    "image": "/images/GymmiesAqua.webp",
+    "category": ["Pajamas"]
+  },
+  {
+    "title": "7-Pack Boys Briefs",
+    "price": "$14.99",
+    "image": "/images/BoysBriefs7Pack.webp",
+    "category": ["Pajamas"]
+  },
+  {
+    "image": "/images/GirlsFloralBow.webp",
+    "title": "Girls Floral Bow Swimsuit",
+    "price": "$16.99",
+    "category": ["Swim"]
+  },
+  {
+    "image": "/images/GirlsVacationOneShoulder.webp",
+    "title": "Girls Vacation One-Shoulder",
+    "price": "$17.99",
+    "category": ["Swim"]
+  },
+  {
+    "image": "/images/GirlsStrawberryOne.webp",
+    "title": "Girls Strawberry Swimsuit",
+    "price": "$18.50",
+    "category": ["Swim"]
+  },
+  {
+    "image": "/images/BoysSharkRashguard.webp",
+    "title": "Boys Shark Rashguard",
+    "price": "$14.99",
+    "category": ["Swim"]
+  },
+  {
+    "image": "/images/BoysFlamingoSwim.webp",
+    "title": "Boys Flamingo Swim Trunks",
+    "price": "$16.99",
+    "category": ["Swim"]
+  },
+  {
+    "image": "/images/BoysStripedZip.webp",
+    "title": "Boys Striped Zip Rashguard",
+    "price": "$15.50",
+    "category": ["Swim"]
+  }
+]

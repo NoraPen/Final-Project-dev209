@@ -14,6 +14,7 @@ import Baby from './pages/Baby';
 import Swim from './pages/Swim';
 import Login from './pages/Login';
 import Register from './pages/Register';
+
 function AppRouter() {
   return (
     <Router>

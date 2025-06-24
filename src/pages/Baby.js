@@ -1,57 +1,30 @@
-// src/pages/Baby.js
-import React from 'react';
-import '../style.css';
-import '../pages.css';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import { Link } from 'react-router-dom'; 
-import ProductCard from '../components/ProductCard';
+//src/pages/Baby.js
+import React, { useEffect, useState } from "react";
+import { collection, query, where, onSnapshot, getFirestore } from "firebase/firestore";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import ProductCard from "../components/ProductCard";
+import { Link } from "react-router-dom";
 
 function Baby() {
-  const products = [
-    {
-      image: '/images/BabyGirlsEmbroideredSweater.webp',
-      title: 'Embroidered Sweater Set',
-      price: '$19.99',
-      category: ['Baby'],
-    },
-    {
-      image: '/images/BabyGirlsFloralDress.webp',
-      title: 'Floral Dress Set',
-      price: '$17.99',
-      category: ['Baby'],
-    },
-    {
-      image: '/images/BabyStripedSnugFit.webp',
-      title: 'Pink Striped Footed Sleeper',
-      price: '$12.99',
-      category: ['Baby'],
-    },
-    {
-      image: '/images/BabyBoysMarledSweater.webp',
-      title: 'Marled Sweater Set',
-      price: '$19.99',
-      category: ['Baby'],
-    },
-    {
-      image: '/images/BabyBoysAnimalBodysuit3.webp',
-      title: 'Animal Bodysuits (3-Pack)',
-      price: '$16.49',
-      category: ['Baby'],
-    },
-    {
-      image: '/images/BabySweaterRomper.webp',
-      title: 'Knit Sweater Romper',
-      price: '$21.99',
-      category: ['Baby'],
-    },
-  ];
+  const [products, setProducts] = useState([]);
+  const db = getFirestore();
+
+  useEffect(() => {
+    const q = query(
+      collection(db, "products"),
+      where("category", "array-contains", "Baby")
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setProducts(data);
+    });
+    return () => unsubscribe();
+  }, [db]);
 
   return (
     <>
       <Navbar />
-
-      {/* Section Menu */}
       <div className="category-links">
         <Link to="/new-arrivals">NEW ARRIVALS</Link> |
         <Link to="/boys">BOYS</Link> |
@@ -65,15 +38,17 @@ function Baby() {
         <p className="page-description">Adorable outfits for your little one!</p>
 
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mt-4">
-          {products.map((product, index) => (
-            <ProductCard key={index} product={product} />
-          ))}
+          {products.length ? (
+            products.map((product) => <ProductCard key={product.id} product={product} />)
+          ) : (
+            <p>No products found.</p>
+          )}
         </div>
       </main>
-
-      <Footer /> 
+      <Footer />
     </>
   );
 }
+
 
 export default Baby;

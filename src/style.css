@@ -549,11 +549,24 @@ input, button {
 
 
 /* === Login/Register === */
+.page-wrapper {
+  min-height: 100vh;         /* Full viewport height */
+  display: flex;
+  flex-direction: column;
+}
+
 .auth-page {
   width: 90%;
   max-width: 1140px;
   margin: 0 auto;
   text-align: center;
+  flex: 1;                   /* Take all available space between navbar and footer */
+  display: flex;
+  justify-content: center;   /* Horizontal center */
+  align-items: center;       /* Vertical center */
+  padding: 20px;             /* Optional padding */
+  text-align: center;        /* Center text inside */
+  
 }
 
 .auth-page h2{
@@ -578,6 +591,16 @@ input, button {
 .auth-page button:hover {
   background-color: #e5a9b0;
   color: white;
+}
+
+.link a {
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.link a:hover {
+  color: #0056b3;
 }
 
 /* Medium screen product spacing */
