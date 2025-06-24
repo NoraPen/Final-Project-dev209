@@ -18,7 +18,7 @@ function ProductCard({ product, onDelete }) {
         productPrice: product.price,
         productImage: product.image,
         timestamp: serverTimestamp(),
-        productCategory: product.categories,
+        productCategory: product.category,
       });
       alert('Purchase successful!');
     } catch (error) {
