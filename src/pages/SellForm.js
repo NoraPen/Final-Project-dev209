@@ -7,6 +7,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import ConfirmButton from '../components/ConfirmButton';
 import '../pages.css';
 
 function SellForm() {
@@ -161,7 +162,7 @@ function SellForm() {
             <option value="Swim">Swim</option>
           </select>
 
-          <button type="submit">Submit Listing</button>
+          <ConfirmButton type="submit" message="Are you sure you want to submit?">Submit Listing</ConfirmButton>
         </form>
       </div>
       <Footer />

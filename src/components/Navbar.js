@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { auth } from '../firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
+import ConfirmButton from "../components/ConfirmButton";
 
 function Navbar() {
   const [user, setUser] = useState(null);
@@ -24,20 +25,15 @@ function Navbar() {
     }
   };
 
-  const handleLogout = () => {
-    const confirmed = window.confirm('Are you sure you want to log out?');
-    if (confirmed) {
-      signOut(auth)
-        .then(() => {
-          navigate('/login');
-        })
-        .catch((error) => {
-          console.error('Logout error:', error);
-          alert('Failed to log out. Please try again.');
-        });
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout failed:', error);
+      alert('Failed to log out. Please try again.');
     }
   };
-
   // Show "Log Out" button if user is on /account page and logged in
   const isOnAccountPage = location.pathname === '/account';
 
@@ -63,9 +59,9 @@ function Navbar() {
 
       <div className="navbar-right">
         {user && isOnAccountPage ? (
-          <button className="login-button" onClick={handleLogout}>
+          <ConfirmButton className="login-button" onClick={handleLogout} message="Are you sure you want to log out?">
             Log Out
-          </button>
+          </ConfirmButton>
         ) : (
           <button className="login-button" onClick={handleAuthClick}>
             {user ? 'My Account' : 'Log In'}

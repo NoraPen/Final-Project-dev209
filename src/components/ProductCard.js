@@ -1,6 +1,7 @@
 import React from 'react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../firebase';
+import ConfirmButton from "../components/ConfirmButton";
 
 function ProductCard({ product, onDelete }) {
   const user = auth.currentUser;
@@ -45,9 +46,9 @@ function ProductCard({ product, onDelete }) {
         </div>
         <div className="card-footer text-center">
           {onDelete ? (
-            <button className="btn btn-danger" onClick={onDelete}>
+            <ConfirmButton className="btn btn-danger" message="Are you sure you want to remove this from your history? This won't delete the product for others." onClick={onDelete}>
               Delete from History
-            </button>
+            </ConfirmButton>
           ) : isOwnProduct ? (
             <button className="btn btn-secondary" onClick={handleBuyNow}>
               Your Product

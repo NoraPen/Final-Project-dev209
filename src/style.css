@@ -423,12 +423,7 @@ input, button {
   margin-right: auto;
 }
 
-/* === User Account Section ===  
-.container-account-section { 
-  background-color: #F6C1C7;
-}*/
-
-
+/* === User Account Section ===  */
 
 .container-MyAccount {
   width: 90%;
@@ -631,12 +626,12 @@ input, button {
   max-width: 1140px;
   margin: 0 auto;
   text-align: center;
-  flex: 1;                   /* Take all available space between navbar and footer */
+  flex: 1;                
   display: flex;
-  justify-content: center;   /* Horizontal center */
-  align-items: center;       /* Vertical center */
-  padding: 20px;             /* Optional padding */
-  text-align: center;        /* Center text inside */
+  justify-content: center;   
+  align-items: center;     
+  padding: 20px;            
+  text-align: center;       
   
 }
 
