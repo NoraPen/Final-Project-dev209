@@ -497,6 +497,7 @@ input, button {
   width: 100%;
   height: auto;
   object-fit: cover;
+  
 }
 
 .card-body {
@@ -510,7 +511,23 @@ input, button {
 @media (max-width: 768px) {
   .account-row {
     flex-direction: column;
+
+  .card img {
+    height: 200px;
   }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .card-body p {
+    font-size: 0.95rem;
+  }
+
+  .card-footer {
+    padding: 0.75rem;
+  }
+}
 }
 
 /* === Sell Preview Page === */
