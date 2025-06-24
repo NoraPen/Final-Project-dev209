@@ -1,35 +1,37 @@
+// src/pages/UserAccount.js
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
-import { collection, query, where, getDocs, getFirestore } from 'firebase/firestore';
+import {
+  collection,
+  query,
+  where,
+  getFirestore,
+  onSnapshot,
+  deleteDoc,
+  doc
+} from 'firebase/firestore';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProductCard from '../components/ProductCard';
-import { onSnapshot } from 'firebase/firestore';
 import '../style.css';
 import '../pages.css';
-
 
 function UserAccount() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [signupDate, setSignupDate] = useState('');
   const [purchases, setPurchases] = useState([]);
   const [sales, setSales] = useState([]);
   const navigate = useNavigate();
   const db = getFirestore();
 
-  // Check auth state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (!currentUser) {
         setTimeout(() => navigate('/login'), 0);
       } else {
         setUser(currentUser);
-        if (currentUser.metadata?.creationTime) {
-          setSignupDate(new Date(currentUser.metadata.creationTime).toLocaleDateString());
-        }
       }
       setLoading(false);
     });
@@ -37,26 +39,33 @@ function UserAccount() {
     return () => unsubscribe();
   }, [navigate]);
 
-  // Fetch purchases and sales from Firestore
   useEffect(() => {
-  if (!user) return;
+    if (!user) return;
 
-  const purchaseQuery = query(collection(db, 'orders'), where('userId', '==', user.uid));
-  const salesQuery = query(collection(db, 'products'), where('sellerId', '==', user.uid));
+    const purchaseQuery = query(
+      collection(db, 'orders'),
+      where('userId', '==', user.uid)
+    );
+    const salesQuery = query(
+      collection(db, 'products'),
+      where('sellerId', '==', user.uid)
+    );
 
-  const unsubscribePurchases = onSnapshot(purchaseQuery, (snapshot) => {
-    setPurchases(snapshot.docs.map(doc => doc.data()));
-  });
+    const unsubscribePurchases = onSnapshot(purchaseQuery, (snapshot) => {
+      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setPurchases(data.reverse()); // newest first
+    });
 
-  const unsubscribeSales = onSnapshot(salesQuery, (snapshot) => {
-    setSales(snapshot.docs.map(doc => doc.data()));
-  });
+    const unsubscribeSales = onSnapshot(salesQuery, (snapshot) => {
+      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setSales(data.reverse()); // newest first
+    });
 
-  return () => {
-    unsubscribePurchases();
-    unsubscribeSales();
-  };
-}, [user, db]);
+    return () => {
+      unsubscribePurchases();
+      unsubscribeSales();
+    };
+  }, [user, db]);
 
   const handleLogout = async () => {
     await signOut(auth);
@@ -79,7 +88,6 @@ function UserAccount() {
             <h3>Account Details</h3>
             <p><strong>Email:</strong> {user.email}</p>
             <p><strong>Member Since:</strong> {new Date(user.metadata.creationTime).toLocaleDateString()}</p>
- 
           </div>
         </header>
 
@@ -91,13 +99,21 @@ function UserAccount() {
               <h3>Purchases</h3>
               {purchases.length > 0 ? (
                 <div className="row">
-                  {purchases.map((item, i) => (
+                  {purchases.map((item) => (
                     <ProductCard
-                      key={i}
+                      key={item.id}
                       product={{
+                        id: item.id,
                         title: item.productName || "Product",
                         price: item.productPrice || 0,
                         image: item.productImage || "https://dummyimage.com/450x300/dee2e6/6c757d.jpg",
+                      }}
+                      onDelete={async () => {
+                        try {
+                          await deleteDoc(doc(db, 'orders', item.id));
+                        } catch (error) {
+                          console.error("Error deleting purchase:", error);
+                        }
                       }}
                     />
                   ))}
@@ -112,22 +128,23 @@ function UserAccount() {
               <h3>Sales</h3>
               {sales.length > 0 ? (
                 <div className="row">
-                  {sales.map((item, i) => (
-                    <div className="col" key={i}>
-                      <div className="card h-100">
-                        <img
-                          src={item.image || "https://dummyimage.com/450x300/dee2e6/6c757d.jpg"}
-                          alt={item.title || "Product"}
-                        />
-                        <div className="card-body text-center">
-                          <h5 className="card-title">{item.title || "Product"}</h5>
-                          <p>${item.price?.toFixed(2) || "0.00"}</p>
-                        </div>
-                        <div className="card-footer text-center">
-                          <a className="btn btn-primary" href="/sell">Edit Listing</a>
-                        </div>
-                      </div>
-                    </div>
+                  {sales.map((item) => (
+                    <ProductCard
+                      key={item.id}
+                      product={{
+                        id: item.id,
+                        title: item.title || "Product",
+                        price: item.price || 0,
+                        image: item.image || "https://dummyimage.com/450x300/dee2e6/6c757d.jpg",
+                      }}
+                      onDelete={async () => {
+                        try {
+                          await deleteDoc(doc(db, 'products', item.id));
+                        } catch (error) {
+                          console.error("Error deleting sale:", error);
+                        }
+                      }}
+                    />
                   ))}
                 </div>
               ) : (
@@ -143,8 +160,6 @@ function UserAccount() {
           </div>
         </section>
       </main>
-
- 
       <Footer />
     </>
   );

@@ -1,8 +1,9 @@
+// src/components/ProductCard.js
 import React from 'react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 
-function ProductCard({ product }) {
+function ProductCard({ product, onDelete }) {
   const handleBuyNow = async () => {
     const user = auth.currentUser;
     if (!user) {
@@ -17,7 +18,7 @@ function ProductCard({ product }) {
         productPrice: product.price,
         productImage: product.image,
         timestamp: serverTimestamp(),
-        productCategory: product.category,
+        productCategory: product.categories,
       });
       alert('Purchase successful!');
     } catch (error) {
@@ -28,14 +29,24 @@ function ProductCard({ product }) {
 
   return (
     <div className="col">
-      <div className="card">
-        <img src={product.image} alt={product.title} />
-        <div className="card-body">
+      <div className="card h-100">
+        <img src={product.image} alt={product.title} className="card-img-top" />
+        <div className="card-body text-center">
           <h5 className="card-title">{product.title}</h5>
-          <p>{product.price}</p>
+          <p>
+            ${product.price ? parseFloat(String(product.price).replace('$', '')).toFixed(2) : '0.00'}
+          </p>
         </div>
-        <div className="card-footer">
-          <button className="btn btn-primary" onClick={handleBuyNow}>Buy Now</button>
+        <div className="card-footer text-center">
+          {onDelete ? (
+            <button className="btn btn-danger" onClick={onDelete}>
+              Delete from History
+            </button>
+          ) : (
+            <button className="btn btn-primary" onClick={handleBuyNow}>
+              Buy Now
+            </button>
+          )}
         </div>
       </div>
     </div>

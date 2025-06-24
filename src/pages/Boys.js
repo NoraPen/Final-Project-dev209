@@ -1,6 +1,7 @@
 // src/pages/Boys.js
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { collection, query, where, onSnapshot, getFirestore } from "firebase/firestore";
+import { Link } from "react-router-dom";
 import '../style.css';
 import '../pages.css';
 import Navbar from '../components/Navbar';
@@ -8,44 +9,20 @@ import Footer from '../components/Footer';
 import ProductCard from '../components/ProductCard';
 
 function Boys() {
-  const products = [
-    {
-      image: "/images/KidsLinenBlend.webp",
-      title: "Kids Linen-Blend Shorts",
-      price: "$11.99",
-      category: ['Boys']
-    },
-    {
-      image: "/images/KidsRollCuff.webp",
-      title: "Roll-Cuff White Pants",
-      price: "$14.99",
-      category: ['Boys']
-    },
-    {
-      image: "/images/KidsEmbroideredTropical.webp",
-      title: "Embroidered Tropical Set",
-      price: "$16.99",
-      category: ['Boys']
-    },
-    {
-      image: "/images/BoysDinoSwimTrunks.webp",
-      title: "Boys Dino Swim Trunks",
-      price: "$13.49",
-      category: ['Boys']
-    },
-    {
-      image: "/images/BoysDinoRashguard.webp",
-      title: "Boys Dino Rashguard",
-      price: "$12.79",
-      category: ['Boys']
-    },
-    {
-      image: "/images/BoysCanvasSlip.webp",
-      title: "Boys Canvas Slip Shoes",
-      price: "$17.99",
-      category: ['Boys']
-    },
-  ];
+  const [products, setProducts] = useState([]);
+  const db = getFirestore();
+
+  useEffect(() => {
+    const q = query(
+      collection(db, "products"),
+      where("category", "array-contains", "Boys")
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setProducts(data);
+    });
+    return () => unsubscribe();
+  }, [db]);
 
   return (
     <>
@@ -66,16 +43,17 @@ function Boys() {
         <p>Explore trendy and comfortable outfits for boys.</p>
 
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mt-4">
-          {products.map((product, index) => (
-            <ProductCard key={index} product={product} />
-          ))}
+          {products.length ? (
+            products.map((product) => <ProductCard key={product.id} product={product} />)
+          ) : (
+            <p>No products found.</p>
+          )}
         </div>
       </main>
-      
-        <Footer />
+
+      <Footer />
     </>
   );
 }
 
 export default Boys;
-

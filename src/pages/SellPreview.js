@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+// src/pages/SellPreview.js
+import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -8,28 +9,20 @@ function SellPreview() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const initialData = location.state || {
-    title: '',
-    description: '',
-    price: '',
-    image: '',
-    category: ''
+  const {
+    title = '',
+    description = '',
+    price = '',
+    image = '',
+    category = ''
+  } = location.state || {};
+
+  const handleSeeHistory = () => {
+    navigate('/account');
   };
 
-  const [title] = useState(initialData.title);
-  const [description] = useState(initialData.description);
-  const [price] = useState(initialData.price);
-  const [image] = useState(initialData.image);
-  const [category] = useState(initialData.category);
-
-  const handleEdit = () => {
-    navigate('/sell', {
-      state: { title, description, price, image, category }
-    });
-  };
-
-  const handleSubmit = () => {
-    alert('Your listing is now live!');
+  const handleSubmitAnother = () => {
+    navigate('/sell');
   };
 
   return (
@@ -45,14 +38,14 @@ function SellPreview() {
         <div className="preview-card">
           {image && <img src={image} alt="Preview" className="preview-image" />}
           <h2>{title}</h2>
-          <p><em>Category: {category}</em></p>
+          <p><em>Category: {Array.isArray(category) ? category.join(', ') : category}</em></p>
           <p>{description}</p>
-          <p><strong>${price}</strong></p>
+          <p><strong>${parseFloat(price).toFixed(2)}</strong></p>
         </div>
 
         <div className="button-group">
-          <button onClick={handleEdit} className="btn">See Listing</button>
-          <button onClick={handleSubmit} className="btn submit-btn">Sell Another Item</button>
+          <button onClick={handleSeeHistory} className="btn">See History</button>
+          <button onClick={handleSubmitAnother} className="btn submit-btn">Sell Another Item</button>
         </div>
       </div>
       <Footer />

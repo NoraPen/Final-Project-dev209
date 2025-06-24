@@ -43,35 +43,36 @@ function Login() {
 };
 
   return (
-    <><Navbar/>
-    <div className="auth-page">
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit">Log In</button>
-        {errorMessage && <p className="login-error-message">{errorMessage}</p>}
-      </form>
-      <p>
-        Don't have an account? <Link to="/register">Register here</Link>
-      </p>
+    <div className="page-wrapper">
+      <Navbar />
+      <main className="auth-page">
+        <h2>Login</h2>
+        <form onSubmit={handleLogin}>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button type="submit">Log In</button>
+          {errorMessage && <p className="login-error-message">{errorMessage}</p>}
+        </form>
+        <p className="link">
+          Don't have an account? <Link to="/register">Register here</Link>
+        </p>
+      </main>
+      <Footer />
     </div>
- 
-<Footer /> 
-</>
   );
 }
 
 export default Login;
+

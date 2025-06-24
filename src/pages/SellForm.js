@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
+// src/pages/SellForm.js
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { auth } from '../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -8,6 +12,7 @@ import '../pages.css';
 function SellForm() {
   const navigate = useNavigate();
   const location = useLocation();
+  const db = getFirestore();
 
   const initialData = location.state || {
     title: '',
@@ -23,6 +28,15 @@ function SellForm() {
   const [image, setImage] = useState(initialData.image);
   const [category, setCategory] = useState(initialData.category);
   const [uploading, setUploading] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) setCurrentUser(user);
+      else navigate('/login');
+    });
+    return () => unsubscribe();
+  }, [navigate]);
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
@@ -47,11 +61,30 @@ function SellForm() {
     }
   };
 
-  const handleNext = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate('/sell-preview', {
-      state: { title, description, price, image, category: ['New-arrivals', category] }
-    });
+
+    if (!currentUser) return;
+
+    try {
+      await addDoc(collection(db, 'products'), {
+        title,
+        description,
+        price: parseFloat(price),
+        image,
+        category: ['New Arrivals', category],
+        sellerId: currentUser.uid,
+        createdAt: new Date()
+      });
+
+      // Navigate to SellPreview page with submitted data
+      navigate('/sell-preview', {
+        state: { title, description, price, image, category }
+      });
+    } catch (err) {
+      console.error('Error submitting listing:', err);
+      alert('Failed to submit listing. Please try again.');
+    }
   };
 
   return (
@@ -63,7 +96,7 @@ function SellForm() {
           <p>Give your children’s clothes a new story by selling them through MiniCloset. We make it easy for parents to list items, find buyers, and give clothes a second life.</p>
         </div>
 
-        <form onSubmit={handleNext} className="sell-form">
+        <form onSubmit={handleSubmit} className="sell-form">
           <h2>List Your Product</h2>
 
           <input
@@ -137,5 +170,4 @@ function SellForm() {
 }
 
 export default SellForm;
-
 

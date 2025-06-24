@@ -25,20 +25,22 @@ function Register() {
   };
 
   return (
-    <><Navbar/>
-    <main className="auth-page">
-      <h2>Register</h2>
-      <form onSubmit={handleRegister}>
-        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        <button type="submit">Register</button>
-        <p>Already have an account? <Link to="/login" state={{ returnTo }}>Login</Link></p>
-      </form>
-    </main>
- 
-<Footer />
-</>
-  );
+    <div className="page-wrapper">
+      <Navbar />
+      
+      <main className="auth-page">
+        <h2>Register</h2>
+        <form onSubmit={handleRegister}>
+          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <button type="submit">Register</button>
+          <p className="link">Already have an account? <Link to="/login" state={{ returnTo }}>Login</Link></p>
+        </form>
+      </main>
+
+      <Footer />
+    </div>
+      );
 }
 
 export default Register;
