@@ -3,18 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
-import {
-  collection,
-  query,
-  where,
-  getFirestore,
-  onSnapshot,
-  deleteDoc,
-  doc
-} from 'firebase/firestore';
+import { collection, query, where, getFirestore, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProductCard from '../components/ProductCard';
+import ConfirmButton from '../components/ConfirmButton';
 import '../style.css';
 import '../pages.css';
 
@@ -68,8 +61,13 @@ function UserAccount() {
   }, [user, db]);
 
   const handleLogout = async () => {
-    await signOut(auth);
-    navigate('/login');
+    try {
+      await signOut(auth);
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout failed:', error);
+      alert('Failed to log out. Please try again.');
+    }
   };
 
   if (loading) return <p>Loading...</p>;
@@ -156,7 +154,9 @@ function UserAccount() {
 
           {/* Logout button */}
           <div style={{ marginTop: '2rem', textAlign: 'center' }}>
-            <button className="btn" onClick={handleLogout}>Log Out</button>
+            <ConfirmButton onConfirm={handleLogout} message="Are you sure you want to log out?" className="logout-button">
+              Log Out
+            </ConfirmButton>
           </div>
         </section>
       </main>

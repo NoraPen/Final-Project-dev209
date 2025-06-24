@@ -1,13 +1,18 @@
-// src/components/ProductCard.js
 import React from 'react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../firebase';
+import ConfirmButton from "../components/ConfirmButton";
 
 function ProductCard({ product, onDelete }) {
+  const user = auth.currentUser;
+
   const handleBuyNow = async () => {
-    const user = auth.currentUser;
     if (!user) {
       alert('Please log in to buy.');
+      return;
+    }
+    if (product.sellerId === user.uid) {
+      alert("This product belongs to your account.");
       return;
     }
 
@@ -27,6 +32,8 @@ function ProductCard({ product, onDelete }) {
     }
   };
 
+  const isOwnProduct = user && product.sellerId === user.uid;
+
   return (
     <div className="col">
       <div className="card h-100">
@@ -39,8 +46,12 @@ function ProductCard({ product, onDelete }) {
         </div>
         <div className="card-footer text-center">
           {onDelete ? (
-            <button className="btn btn-danger" onClick={onDelete}>
+            <ConfirmButton className="btn btn-danger" message="Are you sure you want to remove this from your history? This won't delete the product for others." onClick={onDelete}>
               Delete from History
+            </ConfirmButton>
+          ) : isOwnProduct ? (
+            <button className="btn btn-secondary" onClick={handleBuyNow}>
+              Your Product
             </button>
           ) : (
             <button className="btn btn-primary" onClick={handleBuyNow}>
