@@ -530,7 +530,7 @@ input, button {
   .card-footer .btn {
     font-size: 0.95rem;
     padding: 0.5rem 1rem;
-    width: 100%; /* optional: make button fill the footer */
+    /*width: 100%; /* optional: make button fill the footer */
     box-sizing: border-box;
   }
 }
