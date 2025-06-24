@@ -543,6 +543,10 @@ input, button {
     word-break: break-word;
     width: 100%;
   }
+  .card-footer .btn-danger {
+    font-size: 0.8rem; /* smaller font size on mobile */
+    padding: 0.4rem 0.8rem; /* optionally adjust padding */
+  }
 }
 
 /* === Sell Preview Page === */
