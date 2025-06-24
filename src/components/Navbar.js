@@ -5,6 +5,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 function Navbar() {
   const [user, setUser] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false); // mobile menu toggle
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,10 +26,18 @@ function Navbar() {
   return (
     <div className="navbar">
       <div className="navbar-left">
-        <span className="navbar-brand"><Link to="/">MiniCloset</Link></span>
+        <span className="navbar-brand">
+          <Link to="/">MiniCloset</Link>
+        </span>
       </div>
 
-      <div className="navbar-center">
+      {/* Hamburger for mobile */}
+      <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+        ☰
+      </button>
+
+      {/* Regular navbar links */}
+      <div className={`navbar-center ${menuOpen ? 'open' : ''}`}>
         <Link className="nav-link" to="/">Home</Link>
         <Link className="nav-link" to="/new-arrivals">Buy</Link>
         <Link className="nav-link" to="/sell">Sell</Link>
@@ -38,7 +47,6 @@ function Navbar() {
         <button className="login-button" onClick={handleAuthClick}>
           {user ? 'My Account' : 'Log In'}
         </button>
-       
       </div>
     </div>
   );
