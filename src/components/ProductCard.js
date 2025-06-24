@@ -11,7 +11,7 @@ function ProductCard({ product, onDelete }) {
       return;
     }
     if (product.sellerId === user.uid) {
-      alert("You can't buy your own product.");
+      alert("This product belongs to your account.");
       return;
     }
 

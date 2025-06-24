@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { auth } from '../firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 function Navbar() {
   const [user, setUser] = useState(null);
-  const [menuOpen, setMenuOpen] = useState(false); // mobile menu toggle
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -22,6 +23,23 @@ function Navbar() {
       navigate('/login');
     }
   };
+
+  const handleLogout = () => {
+    const confirmed = window.confirm('Are you sure you want to log out?');
+    if (confirmed) {
+      signOut(auth)
+        .then(() => {
+          navigate('/login');
+        })
+        .catch((error) => {
+          console.error('Logout error:', error);
+          alert('Failed to log out. Please try again.');
+        });
+    }
+  };
+
+  // Show "Log Out" button if user is on /account page and logged in
+  const isOnAccountPage = location.pathname === '/account';
 
   return (
     <div className="navbar">
@@ -44,9 +62,15 @@ function Navbar() {
       </div>
 
       <div className="navbar-right">
-        <button className="login-button" onClick={handleAuthClick}>
-          {user ? 'My Account' : 'Log In'}
-        </button>
+        {user && isOnAccountPage ? (
+          <button className="login-button" onClick={handleLogout}>
+            Log Out
+          </button>
+        ) : (
+          <button className="login-button" onClick={handleAuthClick}>
+            {user ? 'My Account' : 'Log In'}
+          </button>
+        )}
       </div>
     </div>
   );

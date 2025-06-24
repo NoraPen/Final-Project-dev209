@@ -68,8 +68,16 @@ function UserAccount() {
   }, [user, db]);
 
   const handleLogout = async () => {
-    await signOut(auth);
-    navigate('/login');
+    const confirmed = window.confirm('Are you sure you want to log out?');
+    if (confirmed) {
+      try {
+        await signOut(auth);
+        navigate('/login');
+      } catch (error) {
+        console.error('Logout failed:', error);
+        alert('Failed to log out. Please try again.');
+      }
+    }
   };
 
   if (loading) return <p>Loading...</p>;
