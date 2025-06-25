@@ -97,7 +97,11 @@ header h1 {
   display: block;
 }
 
-
+@media (max-width: 768px) {
+  .hero-image {
+    height: 40vh; /* shorter on mobile */
+  }
+}
 
 /* Info Banner */
 .info-banner {
