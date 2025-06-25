@@ -1,70 +1,33 @@
-# Getting Started with Create React App
+## About the Project
+MiniCloset is a multi-page React application designed for buying and selling children's clothing. Users can create new listings, preview them before posting, and browse items categorized by Baby, Boys, Girls, Pajamas, Swim, and more. The application features authentication, responsive design, reusable components, and an intuitive user interface.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Setup Instructions
+To set up the project, clone the repository using the command git clone https://github.com/NoraPen/Final-Project-dev209.git, then navigate to the project folder with cd minicloset. Install the dependencies by running npm install, and start the application locally using npm start.
 
-## Available Scripts
+## Technologies Used
+The app is built with React using functional components and hooks. React Router handles navigation between pages. CSS, with Flexbox and Grid, is used for layout styling. Create React App is used for bundling, and Vercel is used for deployment. The Context API may be implemented for global state management in future updates.
 
-In the project directory, you can run:
+## Reusable Components
+Five reusable components have been developed. Navbar.js manages site-wide navigation. Footer.js ensures consistent content across all pages. ProductCard.js displays individual product listings. SellForm.js provides a reusable form for creating listings. SellPreview.js offers a preview of the listing before submission.
 
-### `npm start`
+## Pages Implemented
+Implemented pages include Home, Buy, Sell, Sell Preview, and User Account. Each page is routed individually and features consistent navigation.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Authentication
+Authentication features like login and signup are planned. Protected routes will restrict access to pages like Sell, and user-specific content will be shown after login.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Data Management
+For data management, users can create product listings through the Sell form. The Buy page displays current listings. Update and delete features will be added later. Client-side validation ensures only complete data is submitted.
 
-### `npm test`
+## API Integrations
+Firebase is integrated for user authentication and data storage through Firestore. Cloudinary is used for image hosting. Both APIs include proper error handling and display loading states while fetching or uploading data.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Known Issues
+Known limitations include previous merge conflicts that affected layout and temporarily removed images, but we solved the problem.
+The code includes comments explaining logic where necessary, especially in SellForm.js. Formatting is consistent, with clear variable names and organized structure.
 
-### `npm run build`
+## Code Quality
+This project fulfills key technical, UI, and UX requirements. It uses React Router with more than four distinct routes, manages state using hooks, includes five reusable components, supports responsive design, and features consistent layout and navigation. Form validation provides basic user feedback. Accessibility improvements are planned.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Final Notes
+This README includes setup instructions, feature overviews, and code structure details. API documentation will be added after integration. The codebase is clean, well-commented.
