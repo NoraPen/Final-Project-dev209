@@ -351,6 +351,8 @@ button:hover {
     right: 0;
     padding: 1rem;
     z-index: 1000;
+    background-color: #f9f9f9; /* light gray for contrast */
+    color: #333;
   }
 
   .navbar-center.open {
@@ -359,10 +361,19 @@ button:hover {
 
   .hamburger {
     display: block;
+    color: white;
     font-size: 1.5rem;
     background: none;
     border: none;
     cursor: pointer;
+  }
+  .navbar-center .nav-link {
+    color: #333; 
+    padding: 0.5rem 0;
+    text-decoration: none;
+  }
+  .navbar-center .nav-link:hover {
+  text-decoration: underline;
   }
 }
 
