@@ -59,7 +59,7 @@ function Navbar() {
 
       <div className="navbar-right">
         {user && isOnAccountPage ? (
-          <ConfirmButton className="login-button" onClick={handleLogout} message="Are you sure you want to log out?">
+          <ConfirmButton className="login-button" onConfirm={handleLogout} message="Are you sure you want to log out?">
             Log Out
           </ConfirmButton>
         ) : (

@@ -46,7 +46,7 @@ function ProductCard({ product, onDelete }) {
         </div>
         <div className="card-footer text-center">
           {onDelete ? (
-            <ConfirmButton className="btn btn-danger" message="Are you sure you want to remove this from your history? This won't delete the product for others." onClick={onDelete}>
+            <ConfirmButton className="btn btn-danger" message="Are you sure you want to remove this from your history? This won't delete the product for others." onConfirm={onDelete}>
               Delete from History
             </ConfirmButton>
           ) : isOwnProduct ? (
