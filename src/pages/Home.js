@@ -10,6 +10,7 @@ import { collection, query, where, onSnapshot, getFirestore } from 'firebase/fir
 
 function Home() {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const db = getFirestore();
 
   useEffect(() => {
@@ -20,6 +21,7 @@ function Home() {
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setProducts(data);
+      setLoading(false);
     });
 
     return () => unsubscribe();
@@ -51,15 +53,19 @@ function Home() {
       {/* Product Recommendations */}
       <div className="container">
         <h3 className="section-title-inline">We Think You Will Love These</h3>
-        <div className="row">
-          {products.length ? (
-            products.map(product => (
-              <ProductCard key={product.id} product={product} />
-            ))
-          ) : (
-            <p>Loading products...</p>
-          )}
-        </div>
+        {loading ? (
+          <p>Loading products...</p>
+        ) : (
+          <div className="row">
+            {products.length ? (
+              products.map(product => (
+                <ProductCard key={product.id} product={product} />
+              ))
+            ) : (
+              <p>No products found.</p>
+            )}
+          </div>
+        )}
       </div>
 
       <Footer /> 

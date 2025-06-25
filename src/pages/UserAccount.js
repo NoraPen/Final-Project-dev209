@@ -12,14 +12,18 @@ import '../style.css';
 import '../pages.css';
 
 function UserAccount() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null); 
   const [loading, setLoading] = useState(true);
   const [purchases, setPurchases] = useState([]);
-  const [sales, setSales] = useState([]);
+  const [sales, setSales] = useState([]); 
   const navigate = useNavigate();
   const db = getFirestore();
+  const [loadingPurchases, setLoadingPurchases] = useState(true);
+  const [loadingSales, setLoadingSales] = useState(true);
 
   useEffect(() => {
+
+    //Navigate to Login Page if not already logged in
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (!currentUser) {
         setTimeout(() => navigate('/login'), 0);
@@ -35,23 +39,34 @@ function UserAccount() {
   useEffect(() => {
     if (!user) return;
 
+    // For Loading Message: set loading to true before data is fetched
+    setLoadingPurchases(true);
+    setLoadingSales(true);
+
+    // Get purchases made by current user
     const purchaseQuery = query(
       collection(db, 'orders'),
       where('userId', '==', user.uid)
     );
+
+    // Get sales made by current user
     const salesQuery = query(
       collection(db, 'products'),
       where('sellerId', '==', user.uid)
     );
 
+    // Show most recent purchases at top of page
     const unsubscribePurchases = onSnapshot(purchaseQuery, (snapshot) => {
       const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setPurchases(data.reverse()); // newest first
+      setPurchases(data.reverse());
+      setLoadingPurchases(false);//Set loading to false
     });
-
+    
+    // Show most recent sales at top of page
     const unsubscribeSales = onSnapshot(salesQuery, (snapshot) => {
       const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setSales(data.reverse()); // newest first
+      setSales(data.reverse());
+      setLoadingSales(false);//Set loading to false
     });
 
     return () => {
@@ -60,6 +75,7 @@ function UserAccount() {
     };
   }, [user, db]);
 
+  //Logout buttons
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -70,7 +86,8 @@ function UserAccount() {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  //Loading message for fetching info from Firebase/Firestore
+  if (loading || loadingPurchases || loadingSales) return <p>Loading your account info...</p>;
   if (!user) return null;
 
   return (
@@ -94,7 +111,7 @@ function UserAccount() {
 
             {/* Purchases Section */}
             <div className="account-card">
-              <h3>Purchases</h3>
+              <h3>Purchase History</h3>
               {purchases.length > 0 ? (
                 <div className="row">
                   {purchases.map((item) => (
@@ -123,7 +140,7 @@ function UserAccount() {
 
             {/* Sales Section */}
             <div className="account-card">
-              <h3>Sales</h3>
+              <h3>Sales History</h3>
               {sales.length > 0 ? (
                 <div className="row">
                   {sales.map((item) => (
@@ -134,6 +151,7 @@ function UserAccount() {
                         title: item.title || "Product",
                         price: item.price || 0,
                         image: item.image || "https://dummyimage.com/450x300/dee2e6/6c757d.jpg",
+                        deleteScope: 'site', //used to remove selected sale from buy pages and sales history
                       }}
                       onDelete={async () => {
                         try {

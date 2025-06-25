@@ -14,6 +14,7 @@ function SellForm() {
   const navigate = useNavigate();
   const location = useLocation();
   const db = getFirestore();
+  const [submitting, setSubmitting] = useState(false);
 
   const initialData = location.state || {
     title: '',
@@ -31,14 +32,22 @@ function SellForm() {
   const [uploading, setUploading] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
 
+  // Ensure User in logged in when listing a product
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) setCurrentUser(user);
-      else navigate('/login');
-    });
+      if (user) {
+        setCurrentUser(user);
+      } else {
+        navigate('/login', {
+          state: { fromSell: true }
+        });
+      }
+      }
+    );
     return () => unsubscribe();
   }, [navigate]);
 
+    // Image Upload using Cloudinary API
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -62,10 +71,12 @@ function SellForm() {
     }
   };
 
+  // Submit product into Firestore database
   const handleSubmit = async (e) => {
     if (e && e.preventDefault) e.preventDefault();
-
     if (!currentUser) return;
+
+    setSubmitting(true); // Start loading
 
     try {
       await addDoc(collection(db, 'products'), {
@@ -78,16 +89,19 @@ function SellForm() {
         createdAt: new Date()
       });
 
-      // Navigate to SellPreview page with submitted data
+      // Navigate to SellPreview page with preview of submitted products
       navigate('/sell-preview', {
         state: { title, description, price, image, category }
       });
     } catch (err) {
       console.error('Error submitting listing:', err);
       alert('Failed to submit listing. Please try again.');
+    } finally {
+      setSubmitting(false); // End loading
     }
   };
-
+      
+ 
   return (
     <>
       <Navbar />
