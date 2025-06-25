@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 
 function Baby() {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const db = getFirestore();
 
   useEffect(() => {
@@ -18,6 +19,7 @@ function Baby() {
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setProducts(data);
+      setLoading(false);
     });
     return () => unsubscribe();
   }, [db]);
@@ -37,13 +39,19 @@ function Baby() {
       <main className="container py-5">
         <p className="page-description">Adorable outfits for your little one!</p>
 
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mt-4">
-          {products.length ? (
-            products.map((product) => <ProductCard key={product.id} product={product} />)
-          ) : (
-            <p>No products found.</p>
-          )}
-        </div>
+        {loading ? (
+          <p>Loading products...</p> 
+        ) : (
+          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mt-4">
+            {products.length ? (
+              products.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))
+            ) : (
+              <p>No products found.</p>
+            )}
+          </div>
+        )}
       </main>
       <Footer />
     </>
