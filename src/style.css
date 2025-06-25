@@ -353,10 +353,12 @@ button:hover {
     z-index: 1000;
     background-color: #f9f9f9; /* light gray for contrast */
     color: #333;
+    text-align: center;
   }
 
   .navbar-center.open {
     display: flex;
+    text-align: center;
   }
 
   .hamburger {
@@ -371,9 +373,11 @@ button:hover {
     color: #333; 
     padding: 0.5rem 0;
     text-decoration: none;
+    text-align: center;
   }
   .navbar-center .nav-link:hover {
   text-decoration: underline;
+    text-align: center;
   }
 }
 
