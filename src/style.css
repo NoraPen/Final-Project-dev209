@@ -213,6 +213,10 @@ header h1 {
   margin-bottom: 0.5rem;
   font-family: var(--font-headings);
   color: var(--primary);
+  white-space: normal;     /* Allows text to wrap */
+  word-wrap: break-word;   /* Ensures long words break to new line */
+  overflow-wrap: break-word;
+  text-align: center; 
 }
 
 /* Buttons */
