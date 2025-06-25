@@ -518,6 +518,8 @@ input, button {
   }
   .card img {
     height: 200px;
+    object-fit: contain; /* Prevents cropping */
+    object-position: center; /* Centers the image */
   }
 
   .card-title {
