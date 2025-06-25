@@ -63,7 +63,7 @@ function SellForm() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (e && e.preventDefault) e.preventDefault();
 
     if (!currentUser) return;
 
@@ -162,7 +162,7 @@ function SellForm() {
             <option value="Swim">Swim</option>
           </select>
 
-          <ConfirmButton type="submit" message="Are you sure you want to submit?">Submit Listing</ConfirmButton>
+          <ConfirmButton className="btn btn-primary" message="Are you sure you want to submit?" onConfirm={handleSubmit}>Submit Listing</ConfirmButton>
         </form>
       </div>
       <Footer />
