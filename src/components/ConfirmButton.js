@@ -9,9 +9,10 @@ function ConfirmButton({ onConfirm, message = 'Are you sure?', children, classNa
   };
 
   return (
-    <button className={className} onClick={handleClick}>
+    <button type="button" className={className} onClick={handleClick}>
       {children}
     </button>
   );
 }
+
 export default ConfirmButton;

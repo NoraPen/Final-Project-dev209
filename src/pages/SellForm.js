@@ -76,6 +76,11 @@ function SellForm() {
     if (e && e.preventDefault) e.preventDefault();
     if (!currentUser) return;
 
+    if (!title.trim() || !description.trim() || !price || !image || !category) {
+    alert("Please fill in all fields before submitting.");
+    return;
+  }
+
     setSubmitting(true); // Start loading
 
     try {
@@ -111,7 +116,7 @@ function SellForm() {
           <p>Give your children’s clothes a new story by selling them through MiniCloset. We make it easy for parents to list items, find buyers, and give clothes a second life.</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="sell-form">
+        <form className="sell-form">
           <h2>List Your Product</h2>
 
           <input
