@@ -1,25 +1,28 @@
-//src/components/ProductCard.js
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+// src/pages/SellForm.js
+import { getFirestore, collection, addDoc, doc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ConfirmButton from "../components/ConfirmButton";
+import { serverTimestamp } from 'firebase/firestore';
 
 function ProductCard({ product, onDelete }) {
   const user = auth.currentUser;
+  const navigate = useNavigate();
   const [isBuying, setIsBuying] = useState(false);
 
   const handleBuyNow = async () => {
     if (!user) {
-      alert('Please log in to buy.'); //Prevents User from Selling before Login
+      alert('Please log in to buy.');
       return;
     }
     if (product.sellerId === user.uid) {
-      alert("This product belongs to your account."); //Prevents User from buying product they listed
+      alert("This product belongs to your account.");
       return;
     }
 
     try {
-      setIsBuying(true); // Start loading
+      setIsBuying(true);
       await addDoc(collection(db, 'orders'), {
         userId: user.uid,
         productName: product.title,
@@ -33,8 +36,17 @@ function ProductCard({ product, onDelete }) {
       console.error('Error saving order:', error);
       alert('Failed to complete purchase.');
     } finally {
-      setIsBuying(false); // End loading
+      setIsBuying(false);
     }
+  };
+
+  const handleEdit = () => {
+    navigate('/sell', {
+      state: {
+        ...product,
+        id: product.id, // pass id for editing
+      },
+    });
   };
 
   const isOwnProduct = user && product.sellerId === user.uid;
@@ -48,8 +60,14 @@ function ProductCard({ product, onDelete }) {
           <p>
             ${product.price ? parseFloat(String(product.price).replace('$', '')).toFixed(2) : '0.00'}
           </p>
+
+          {isOwnProduct && (
+            <button className="btn btn-outline-primary mb-2" onClick={handleEdit}>
+              Edit Listing
+            </button>
+          )}
+
           {onDelete ? (
-            //Button Text on User Account page to allow deleting products instead of buying
             <ConfirmButton 
               className="btn btn-danger"
               message={
@@ -61,19 +79,11 @@ function ProductCard({ product, onDelete }) {
             >
               {product.deleteScope === 'site' ? "Permanently Remove Listing" : "Remove from My History"}
             </ConfirmButton>
-          ) : 
-          // Button Text for Products listed by Current User
-          isOwnProduct ? (
-            <button className="btn btn-secondary" onClick={handleBuyNow}>
-              Your Product
-            </button> 
-          ) :
-          //Default Button text 
-          (
+          ) : !isOwnProduct ? (
             <button className="btn btn-primary" onClick={handleBuyNow}>
               Buy Now
             </button>
-          )}
+          ) : null}
         </div>
       </div>
     </div>

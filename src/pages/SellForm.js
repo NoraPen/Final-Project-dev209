@@ -1,7 +1,6 @@
-// src/pages/SellForm.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, doc, updateDoc } from 'firebase/firestore';
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import axios from 'axios';
@@ -14,9 +13,14 @@ function SellForm() {
   const navigate = useNavigate();
   const location = useLocation();
   const db = getFirestore();
-  const [submitting, setSubmitting] = useState(false);
 
+  const [submitting, setSubmitting] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  // Get initial data (edit mode) or default empty
   const initialData = location.state || {
+    id: null,
     title: '',
     description: '',
     price: '',
@@ -24,30 +28,36 @@ function SellForm() {
     category: ''
   };
 
-  const [title, setTitle] = useState(initialData.title);
-  const [description, setDescription] = useState(initialData.description);
-  const [price, setPrice] = useState(initialData.price);
-  const [image, setImage] = useState(initialData.image);
-  const [category, setCategory] = useState(initialData.category);
-  const [uploading, setUploading] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
+  // Normalize category: if array, use second item, else use string or empty
+  const initialCategory = Array.isArray(initialData.category)
+    ? (initialData.category[1] || '')
+    : (initialData.category || '');
 
-  // Ensure User in logged in when listing a product
+  // Clean price: remove all but digits and dot, convert to string
+  const cleanedPrice = initialData.price
+    ? initialData.price.toString().replace(/[^0-9.]/g, '')
+    : '';
+
+  // Set states with normalized initial values
+  const [title, setTitle] = useState(initialData.title || '');
+  const [description, setDescription] = useState(initialData.description || '');
+  const [price, setPrice] = useState(cleanedPrice);
+  const [image, setImage] = useState(initialData.image || '');
+  const [category, setCategory] = useState(initialCategory);
+
+  const isEdit = !!initialData.id;
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setCurrentUser(user);
       } else {
-        navigate('/login', {
-          state: { fromSell: true }
-        });
+        navigate('/login', { state: { fromSell: true } });
       }
-      }
-    );
+    });
     return () => unsubscribe();
   }, [navigate]);
 
-    // Image Upload using Cloudinary API
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -71,53 +81,88 @@ function SellForm() {
     }
   };
 
-  // Submit product into Firestore database
   const handleSubmit = async (e) => {
-    if (e && e.preventDefault) e.preventDefault();
+    if (e?.preventDefault) e.preventDefault();
     if (!currentUser) return;
 
-    if (!title.trim() || !description.trim() || !price || !image || !category) {
-    alert("Please fill in all fields before submitting.");
-    return;
-  }
+    // Validate all fields, trim category and title to avoid false positives on whitespace
+    if (
+      !title.trim() ||
+      !description.trim() ||
+      !price ||
+      !image ||
+      !category.trim()
+    ) {
+      alert('Please fill in all fields before submitting.');
+      return;
+    }
 
-    setSubmitting(true); // Start loading
+    // Parse price as float and check NaN
+    const numericPrice = parseFloat(price);
+    if (isNaN(numericPrice)) {
+      alert('Please enter a valid price.');
+      return;
+    }
+
+    setSubmitting(true);
 
     try {
-      await addDoc(collection(db, 'products'), {
-        title,
-        description,
-        price: parseFloat(price),
-        image,
-        category: ['New Arrivals', category],
-        sellerId: currentUser.uid,
-        createdAt: new Date()
-      });
+      if (isEdit) {
+        // Update existing listing
+        const docRef = doc(db, 'products', initialData.id);
+        await updateDoc(docRef, {
+          title,
+          description,
+          price: numericPrice,
+          image,
+          category: ['New Arrivals', category]
+        });
+        alert('Listing updated successfully!');
+      } else {
+        // Add new listing
+        const docRef = await addDoc(collection(db, 'products'), {
+          title,
+          description,
+          price: numericPrice,
+          image,
+          category: ['New Arrivals', category],
+          sellerId: currentUser.uid,
+          createdAt: new Date()
+        });
 
-      // Navigate to SellPreview page with preview of submitted products
+        const newProductId = docRef.id;
+        await updateDoc(docRef, { id: newProductId });
+
+        alert('Listing created successfully!');
+      }
+
       navigate('/sell-preview', {
-        state: { title, description, price, image, category }
+        state: { title, description, price: numericPrice, image, category }
       });
     } catch (err) {
-      console.error('Error submitting listing:', err);
+      console.error('Error saving listing:', err);
       alert('Failed to submit listing. Please try again.');
     } finally {
-      setSubmitting(false); // End loading
+      setSubmitting(false);
     }
   };
-      
- 
+
   return (
     <>
       <Navbar />
       <div className="container sell-page">
         <div className="welcome-message">
-          <h1>Welcome to MiniCloset</h1>
-          <p>Give your children’s clothes a new story by selling them through MiniCloset. We make it easy for parents to list items, find buyers, and give clothes a second life.</p>
+          <h1>{isEdit ? 'Edit Your Listing' : 'Welcome to MiniCloset'}</h1>
+          {!isEdit && (
+            <p>
+              Give your children’s clothes a new story by selling them through MiniCloset. We make it
+              easy for parents to list items, find buyers, and give clothes a second life.
+            </p>
+          )}
         </div>
 
-        <form className="sell-form">
-          <h2>List Your Product</h2>
+        <form className="sell-form" onSubmit={handleSubmit}>
+          <h2>{isEdit ? 'Update Product Details' : 'List Your Product'}</h2>
 
           <input
             type="text"
@@ -146,7 +191,7 @@ function SellForm() {
             type="file"
             accept="image/*"
             onChange={handleImageUpload}
-            required
+            required={!image}
           />
           {uploading && <p>Uploading image...</p>}
 
@@ -168,11 +213,7 @@ function SellForm() {
             </div>
           )}
 
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            required
-          >
+          <select value={category} onChange={(e) => setCategory(e.target.value)} required>
             <option value="" disabled>Select Category</option>
             <option value="Baby">Baby</option>
             <option value="Boys">Boys</option>
@@ -181,7 +222,13 @@ function SellForm() {
             <option value="Swim">Swim</option>
           </select>
 
-          <ConfirmButton className="btn btn-primary" message="Are you sure you want to submit?" onConfirm={handleSubmit}>Submit Listing</ConfirmButton>
+          <ConfirmButton
+            className="btn btn-primary"
+            message={isEdit ? 'Save changes to this listing?' : 'Are you sure you want to submit?'}
+            onConfirm={handleSubmit}
+          >
+            {isEdit ? 'Update Listing' : 'Submit Listing'}
+          </ConfirmButton>
         </form>
       </div>
       <Footer />
@@ -190,4 +237,3 @@ function SellForm() {
 }
 
 export default SellForm;
-
