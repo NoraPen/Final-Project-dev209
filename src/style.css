@@ -406,8 +406,9 @@ button:hover {
 /* Responsive */
 @media (max-width: 768px) {
   .col {
-    flex: 1 1 100%;
-    max-width: 100%;
+    flex: 1 1 100% !important;
+    max-width: 100% !important;
+  
   }
 
   .info-text, .info-image {
@@ -716,10 +717,3 @@ input, button {
   color: #0056b3;
 }
 
-/* Medium screen product spacing */
-@media (max-width: 992px) {
-  .col {
-    flex: 1 1 calc(33.333% - 1.5rem);
-    max-width: calc(33.333% - 1.5rem);
-  }
-}
